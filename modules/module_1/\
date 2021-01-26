@@ -1,0 +1,9 @@
+#include <stdio.h>
+
+int main(){
+	int accountId = 5;
+	double accountBalance = 100.53;
+	printf("Accound ID: %d\n", accountId);
+	printf("Account Balance: %f\n", accountBalance);
+	return 0;
+}
