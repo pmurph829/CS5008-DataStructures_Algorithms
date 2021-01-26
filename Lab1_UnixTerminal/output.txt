@@ -1,1 +1,17 @@
-# Simply copy and paste the output from your terminal here!
+Command #1:
+-bash-4.2$ clear
+
+Command #2:
+-bash-4.2$ cd Lab1_UnixTerminal/
+
+Command #3:
+-bash-4.2$ pwd
+/home/murphyp/CS5008/monorepo-pmurph829/Lab1_UnixTerminal
+
+Command #4:
+-bash-4.2$ ls
+ExternalResources  images  main  main.c  output.txt  README.md
+
+Command #5:
+-bash-4.2$ mkdir empty_dir
+
