@@ -1,6 +1,6 @@
 # TODO Please edit the following information in your assignment
 
-- Name: *edit me*
+- Name: Peter Murphy
 - How many hours did it take you to complete this assignment? *edit me*
 - Did you collaborate with any other students/TAs/Professors? *edit me*
 - Did you use any external resources? (Cite them below)
