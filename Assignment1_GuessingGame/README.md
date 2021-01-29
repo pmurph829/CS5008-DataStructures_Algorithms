@@ -1,13 +1,16 @@
 # TODO Please edit the following information in your assignment
 
 - Name: Peter Murphy
-- How many hours did it take you to complete this assignment? *edit me*
-- Did you collaborate with any other students/TAs/Professors? *edit me*
+- How many hours did it take you to complete this assignment? 4
+- Did you collaborate with any other students/TAs/Professors? No
 - Did you use any external resources? (Cite them below)
-  - *edit me*
-  - *edit me and add more rows if needed*
-- (Optional) What was your favorite part of the assignment? *edit me*
-- (Optional) How would you improve the assignment? *edit me*
+  - https://www.programiz.com/c-programming/c-input-output
+  - https://stackoverflow.com/questions/1202687/how-do-i-get-a-specific-range-of-numbers-from-rand
+  - https://www.geeksforgeeks.org/c-program-to-insert-an-element-in-an-array/
+  - https://www.tutorialspoint.com/learn_c_by_examples/program_to_print_array_in_c.htm
+
+- (Optional) What was your favorite part of the assignment? I really enjoyed figuring out how to solve problems in a new language.
+- (Optional) How would you improve the assignment?
 
 # Logistics
 

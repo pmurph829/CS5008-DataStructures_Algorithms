@@ -7,6 +7,14 @@
 #include <stdlib.h>
 #include <time.h>
 
+void printResults(int gameNum, int guesses){
+	if(guesses == 1){
+        	printf("Game %d took you %d guess\n", gameNum, guesses);
+     	} else {
+                printf("Game %d took you %d guesses\n", gameNum, guesses);
+        }
+}
+
 int main(){
 	int guess;
 	int numGames;
@@ -21,9 +29,8 @@ int main(){
 		printf("================================\n");
 		printf("New Game! Pick a number (1 - 10)\n");
 		printf("================================\n");
+		
 		int answer = 1 + rand() % 10;
-		// REMOVE THIS!!!!!!!!!!!!!
-		printf("Answer: %d\n", answer);
 		
 		while(keepGuessing == 1){
 			i++;
@@ -32,6 +39,7 @@ int main(){
 			if(guess == answer){
 				printf("You got it!!\n");
 				guesses[numGames] = i;
+				i = 0;
 				keepGuessing = 0;
 			} else if(guess < answer){
 				printf("Nope, too low!\n");
@@ -41,10 +49,16 @@ int main(){
 			}
 
 		}
-		keepGuessing = 1;
-			
+		keepGuessing = 1;			
 	}
-		
+
+	printf("================================\n");
+        printf("Game Over! Here are the results:\n");
+        printf("================================\n");
+
+	for(int j = 0; j < 5; j++){
+		printResults(j, guesses[j]);
+	}	
 	return 0;
 }
 
