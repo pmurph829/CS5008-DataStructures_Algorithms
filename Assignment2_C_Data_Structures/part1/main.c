@@ -35,7 +35,17 @@ void unitTest1(){
 int main(){
 
 	// List of Unit Tests to test your data structure	
-	unitTest1();
-
+	//unitTest1();
+	queue_t* newQ = create_queue(5);
+	printf("empty: %d\n",queue_empty(newQ));
+	printf("full: %d\n",queue_full(newQ));
+	printf("size: %d\n",queue_size(newQ));
 	return 0;
 }
+
+
+
+
+
+
+

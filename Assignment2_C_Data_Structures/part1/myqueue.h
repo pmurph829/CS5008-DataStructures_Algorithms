@@ -11,6 +11,7 @@
 // ==================================================
 #ifndef MYQUEUE_H
 #define MYQUEUE_H
+#include <stdlib.h>
 
 // The main data structure for the queue
 struct queue{
@@ -31,8 +32,8 @@ typedef struct queue queue_t;
 // The queue should be initialized with data on
 // the heap.
 queue_t* create_queue(unsigned int _capacity){
-	queue_t* myQueue = NULL;
-
+	queue_t* myQueue = (queue_t*)malloc(sizeof(queue_t));
+	myQueue->capacity = _capacity;	
 	return myQueue;
 }
 
@@ -41,7 +42,9 @@ queue_t* create_queue(unsigned int _capacity){
 // Returns 1 if true (The queue is completely empty)
 // Returns 0 if false (the queue has at least one element enqueued)
 int queue_empty(queue_t* q){
-
+	if (q->size == 0){
+		return 1;
+	}
 	return 0;
 }
 
@@ -50,7 +53,9 @@ int queue_empty(queue_t* q){
 // Returns 1 if true (The queue is completely full)
 // Returns 0 if false (the queue has more space available to enqueue items)
 int queue_full(queue_t* q){
-
+	if (q->size == q->capacity){
+		return 1;
+	}
 	return 0;
 }
 
@@ -77,7 +82,10 @@ int queue_dequeue(queue_t *q){
 // A queue that has not been previously created will crash the program.
 // (i.e. A NULL queue cannot return the size, call exit(1))
 unsigned int queue_size(queue_t* q){
-	return 0;
+	if (q == NULL){
+		exit(1);
+	}
+	return q->size;
 }
 
 
