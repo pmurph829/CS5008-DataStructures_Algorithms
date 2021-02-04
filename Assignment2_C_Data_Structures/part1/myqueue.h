@@ -108,12 +108,6 @@ unsigned int queue_size(queue_t* q){
 // Removes a queue and all of its elements from memory.
 // This should be called before the proram terminates.
 void free_queue(queue_t* q){
-	/*
-	int i = 0;
-	for (i; i < q->capacity; i++){
-		free(q->data+i);
-	}
-	*/
 	free(q->data);
 	free(q);
 }

@@ -43,41 +43,69 @@ void print_dequeue(queue_t* q){
 	printf("Dequeued: %d\n",queue_dequeue(q));
 }
 
+void print_test(queue_t* testQ_p, 
+		unsigned int expectCap,
+		unsigned int expectBack,
+		unsigned int expectFront,
+		unsigned int expectSize){
+	//Print out data on a queue for testing.
+	printf("\n\nNew Test:\n");
+	printf("capacity: %d. Should be %d\n", testQ_p->capacity, expectCap);
+	printf("back: %d. Should be %d\n", testQ_p->back, expectBack);
+	printf("front: %d. Should be %d\n", testQ_p->front, expectFront);
+	printf("size: %d. Should be %d\n", testQ_p->size, expectSize);
+}
+
+void unitTest2(){
+	//Test the create_queue function
+	queue_t* test2 = create_queue(5);
+	print_test(test2, 5, 4, 0, 0); 
+	free_queue(test2);
+}
+
+void unitTest3(queue_t* test3){
+	//test enqueue
+	queue_enqueue(test3, 0);
+	queue_enqueue(test3, 1);
+	print_test(test3, 5, 1, 0, 2);
+	queue_enqueue(test3, 2);
+	queue_enqueue(test3, 3);
+	queue_enqueue(test3, 4);
+	print_test(test3, 5, 4, 0, 5);
+	printf("Show that data is not overwritten and full is 1\n");
+	queue_enqueue(test3, 5);
+	print_queue(test3);
+	
+}
+
+void unitTest4(queue_t* test4){
+	//test dequeue
+	print_dequeue(test4);
+	print_dequeue(test4);
+	print_dequeue(test4);
+	print_test(test4, 5, 4, 3, 2);
+	print_dequeue(test4);
+	print_dequeue(test4);
+	print_test(test4, 5, 4, 0, 0);
+	
+	// Re-enable line below to ensure program exits
+	//print_dequeue(test4);
+}
+
 // ====================================================
 // ================== Program Entry ===================
 // ====================================================
 int main(){
 
 	// List of Unit Tests to test your data structure	
-	//unitTest1();
 	queue_t* newQ = create_queue(5);
-	queue_t* qTwo = create_queue(1);
-	print_queue(qTwo);	
-	queue_enqueue(newQ, 0);
-        queue_enqueue(newQ, 1);
-	//print_queue(newQ);
-	print_dequeue(newQ);
-	//print_queue(newQ);
-	queue_enqueue(newQ, 2);
-	queue_enqueue(newQ, 3);
-	queue_enqueue(newQ, 4);
-	//queue_enqueue(newQ, 5);
+	unitTest1();
+	unitTest2();	
+	unitTest3(newQ);
+	unitTest4(newQ);
 	
-	//print_queue(newQ);
-
-	print_dequeue(newQ);
-	print_dequeue(newQ);
-	print_dequeue(newQ);
-	print_dequeue(newQ);
-        queue_enqueue(newQ, 5);
-        queue_enqueue(newQ, 6);
-        queue_enqueue(newQ, 7);
-	queue_enqueue(newQ, 8);
-	print_dequeue(newQ);
-	print_queue(newQ);
-	
+	//Use valgrind to check for leaks
 	free_queue(newQ);
-	free_queue(qTwo);	
 	return 0;
 }
 
