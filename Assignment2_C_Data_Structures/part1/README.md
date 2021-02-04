@@ -33,8 +33,17 @@ For this assignment, our 'queue' library is quite small, so we will implement th
 Circular queues are used quite a bit in operating systems and high performance systems, especially when performance matters. Do a little outside research, and edit this section of the readme answering specifically: Why is a ring buffer useful and/or when should it be used?
 
 # TODO: Put your answer here
+A circular queue is a very elegant solution for a specific problem. If a queue with a maximum capacity is needed, a circular buffer is the best implementation. 
+This is because the structure of a circular buffer makes it self-contained within memory. Since a circular buffer can be assigned a maximum capacity, it can allocate the
+appropriate amount of memory the moment it is created and never need to expand beyond that capacity. This is useful for preventing memory leaks.
 
-*My answer is ...*
+Another advantage to a circular buffer is very effeicent enqueue/dequeue operations. Since the "front" and "back" counters keep track of the appropriate items in the queue,
+there is no need to reshuffle any data after removing or adding an item. In other words, no variables are being copied and assigned to different locations in memory.
+This leads to the high efficiency of these queue operations when using a circular buffer. 
+
+However, a circular queue should only be used when there is a hard limit on the number of items that are allowed into the queue. Otherwise, the data structure would not work
+as intended.
+
 
 
 # Unit Tests
