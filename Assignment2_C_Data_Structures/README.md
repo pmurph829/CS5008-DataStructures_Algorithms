@@ -1,11 +1,18 @@
 # TODO Please edit the following information in your assignment
 
-- Name:
-- How many hours did it take you to complete this assignment?
-- Did you collaborate with any other students/TAs/Professors?
+- Name: Peter Murphy
+- How many hours did it take you to complete this assignment? 6
+- Did you collaborate with any other students/TAs/Professors? No
 - Did you use any external resources? (Cite them below)
-  - tbd
-  - tbd
+  Resources for Pt 1:
+  - https://en.wikipedia.org/wiki/Circular_buffer
+  - https://www.tutorialspoint.com/cprogramming/c_pointers.htm
+  - https://www.programiz.com/dsa/circular-queue
+  - https://www.geeksforgeeks.org/exit0-vs-exit1-in-c-c-with-examples/
+  - https://www.geeksforgeeks.org/queue-set-1introduction-and-array-implementation/
+  - https://www.tutorialspoint.com/c_standard_library/c_function_free.htm
+  - https://towardsdatascience.com/circular-queue-or-ring-buffer-92c7b0193326
+  
 - (Optional) What was your favorite part of the assignment?
 - (Optional) How would you improve the assignment?
 
