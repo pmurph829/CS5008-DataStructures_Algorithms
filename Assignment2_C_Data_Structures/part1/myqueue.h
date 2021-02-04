@@ -33,7 +33,11 @@ typedef struct queue queue_t;
 // the heap.
 queue_t* create_queue(unsigned int _capacity){
 	queue_t* myQueue = (queue_t*)malloc(sizeof(queue_t));
-	myQueue->capacity = _capacity;	
+	myQueue->capacity = _capacity;
+	myQueue->back = _capacity - 1;
+	myQueue->front = 0;
+	myQueue->size =0;
+	myQueue->data = (int*)malloc(_capacity*sizeof(int));	
 	return myQueue;
 }
 
@@ -64,7 +68,13 @@ int queue_full(queue_t* q){
 // Returns a -1 if the operation fails (otherwise returns 0 on success).
 // (i.e. if the queue is full that is an error).
 int queue_enqueue(queue_t* q, int item){
-		return -1; // Note: you should have two return statements in this function.
+	if (queue_full(q) == 1){		
+		return -1;
+	}
+	q->back =  (q->back + 1) % q->capacity;
+	q->data[q->back] = item;
+	q->size++;
+	return 0;
 }
 
 // Dequeue an item
@@ -72,8 +82,14 @@ int queue_enqueue(queue_t* q, int item){
 // removes an item from the queue.
 // Removing from an empty queue should crash the program, call exit(1)
 int queue_dequeue(queue_t *q){
+	if (queue_empty(q) == 1){
+		exit(1);
+	}
+	int firstItem = q->data[q->front];
+	q->front = (q->front + 1) % q->capacity;
 
-		return 99999; // Note: This line is a filler so the code compiles.
+	q->size--;	
+	return firstItem; 
 }
 
 
@@ -88,12 +104,18 @@ unsigned int queue_size(queue_t* q){
 	return q->size;
 }
 
-
 // Free queue
 // Removes a queue and all of its elements from memory.
 // This should be called before the proram terminates.
 void free_queue(queue_t* q){
-
+	/*
+	int i = 0;
+	for (i; i < q->capacity; i++){
+		free(q->data+i);
+	}
+	*/
+	free(q->data);
+	free(q);
 }
 
 
