@@ -4,7 +4,6 @@
 - How many hours did it take you to complete this assignment? 6
 - Did you collaborate with any other students/TAs/Professors? No
 - Did you use any external resources? (Cite them below)
-  Resources for Pt 1:
   - https://en.wikipedia.org/wiki/Circular_buffer
   - https://www.tutorialspoint.com/cprogramming/c_pointers.htm
   - https://www.programiz.com/dsa/circular-queue
