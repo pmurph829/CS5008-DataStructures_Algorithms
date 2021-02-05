@@ -35,9 +35,9 @@ For this assignment, our 'stack' library is quite small, so we will implement th
 
 We are going to talk about stacks quite a lot in this course, so it will be important to understand them. Do a little outside research, and edit this section of the readme answering specifically: Why is a stack useful and/or when should it be used?
 
-# TODO: Put your answer here
+# TODO: Put your answer here.*
 
-*My answer is ...*
+A stack can be a useful data structure for remembering the order of certain events, and supplying that order back in opposite order. One concrete example of a practical implementaion of a stack is undo/redo on a text editor. Each keystroke can be pushed onto a stack, and if a mistake is made, the user can use the undo function to pop the previous keystroke. That keystroke can be pushed onto a separate stack, which can be accessed with the redo function to add the keystroke back onto the document.
 
 # Unit Tests
 

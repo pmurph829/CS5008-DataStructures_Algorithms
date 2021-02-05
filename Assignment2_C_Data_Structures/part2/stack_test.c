@@ -56,16 +56,19 @@ int unitTest2(int status){
 int unitTest3(int status){
     printf("========stack unitTest3========\n");
     stack_t* test3 = create_stack(32);
+    
     int i =0;
     for(i=0; i < 32; i++){
-        stack_enqueue(test3,1);
+	stack_enqueue(test3,1);
+	printf("Enqueue Count: %d, i: %d\n", test3->count,i);
     }
     for(i=0; i < 32; i++){
-        stack_dequeue(test3);
+	
+	stack_dequeue(test3);
+	printf("Dequeue Count: %d, i: %d\n", test3->count, i);
     }
-
+    	
     free_stack(test3);
-
     return 1;
 }
 
@@ -74,17 +77,22 @@ int unitTest4(int status){
     stack_t* test4 = create_stack(32);
     int i =0;
     for(i=0; i < 32; i++){
-       stack_enqueue(test4,1);
+        //printf("A");
+	stack_enqueue(test4,1);
     }
     for(i=0; i < 32; i++){
-        stack_dequeue(test4);
+        //printf("B");
+	stack_dequeue(test4);
     }
     for(i=0; i < 32; i++){
-        stack_enqueue(test4,1);
+        //printf("C");
+	stack_enqueue(test4,1);
     }
     for(i=0; i < 32; i++){
-        stack_dequeue(test4);
+        //printf("D");
+	stack_dequeue(test4);
     }
+    //printf("D");
     free_stack(test4);
 
     return 1;

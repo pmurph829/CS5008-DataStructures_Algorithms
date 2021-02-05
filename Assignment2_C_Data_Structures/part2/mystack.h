@@ -75,8 +75,9 @@ int stack_full(stack_t* s){
 // i.e. push a new item into our data structure
 // Returns a -1 if the operation fails (otherwise returns 0 on success).
 // (i.e. if the Stack is full that is an error, but does not crash the program).
-int stack_enqueue(stack_t* s, int item){
-	if (stack_full(s)== 1){
+int stack_enqueue(stack_t* s, int item){	
+
+	if (stack_full(s) == 1){
 		return -1;
 	}
 	
@@ -88,8 +89,7 @@ int stack_enqueue(stack_t* s, int item){
 	
 	s->head = newNode_p; // Set the stack's "head" field to the new node
 	
-	s->count++; // Increase the stack count by one
-	
+	s->count++; // Increase the stack count by one	
 	return 0; 
 }
 
