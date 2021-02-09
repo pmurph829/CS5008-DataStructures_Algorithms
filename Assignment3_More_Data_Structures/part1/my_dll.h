@@ -53,10 +53,13 @@ dll_t* create_dll(){
 // Returns a pointer to a new node with its "previous" field set to the previous node
 // "next" field is set to NULL
 // Allocates memory for the node.
-node_t* new_node(int data, node_t* previous){
-    node_t*  newNode = (node_t*)malloc(sizeof(node_t));
+node_t* create_node(int data, node_t* previous, node_t* next){
+    node_t* newNode = (node_t*)malloc(sizeof(node_t));
+    if (newNode == NULL){
+        return NULL;
+    }
     newNode->data = data;
-    newNode->next = NULL;
+    newNode->next = next;
     newNode->previous = previous;
 
     return newNode;
@@ -83,7 +86,30 @@ int dll_empty(dll_t* l){
 // Returns -1 if DLL is NULL.
 // (i.e. the memory allocation for a new node failed).
 int dll_push_front(dll_t* l, int item){
-		return -1;
+    if (l == NULL){
+        return -1;
+    }
+    
+    // Create a new node
+    node_t* newNode = create_node(item, NULL, l->head);
+    
+    // Check that memory allocation worked
+    if (newNode == NULL){
+        return 0;
+    }
+
+    // If this is the first node being added to the list, set tail to this node.
+    // Otherwise, set the old head's previous field to newNode
+    if (l->count == 0){
+        l->tail = newNode;
+    } else {
+        l->head->previous = newNode;
+    }
+
+    // Update the current head of the list and increase count
+    l->head = newNode;
+    l->count++;\
+    return 1;
 }
 
 // push a new item to the end of the DLL (after the last node in the list).

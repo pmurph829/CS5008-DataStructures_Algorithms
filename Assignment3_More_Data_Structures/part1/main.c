@@ -13,7 +13,19 @@
 // within the same directory, so we use quotations
 // and provide the path to this file which is within
 // our current directory.
+void print_list(dll_t* l){
+    node_t* iter = l->head;
+    
+    printf("Count: %d\n", l->count);
+    printf("Empty?: %d\n", dll_empty(l));
+    printf("Head: %d, Tail: %d\n", l->head->data, l->tail->data);
+    printf("Items:\n");
 
+    while(iter != NULL){
+        printf("%d\n", iter->data);
+        iter = iter->next;
+    };
+}
 
 
 // ====================================================
@@ -21,8 +33,10 @@
 // ====================================================
 int main(){
     dll_t * dll = create_dll();
-    
-    
+    dll_push_front(dll, 0);
+    dll_push_front(dll, 1);
+    dll_push_front(dll, 2);
+    print_list(dll);
     
     return 0;
 }
