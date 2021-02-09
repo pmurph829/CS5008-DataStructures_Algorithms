@@ -11,20 +11,20 @@ _barebones:
 
 main:
 					# (1) What are we setting up here?
-					# Ans:
-	pushq %rbp			#
-	movq  %rsp, %rbp		#
+					# Ans: This is pushing the Stack Base Pointer Register to the base of the stack,
+	pushq %rbp			# and pushing the Stack Pointer Register to the top of the stack. 
+	movq  %rsp, %rbp		# Essentially, this is setting up an empty stack.
 
 					# (2) What is going on here
-					# Ans:
-	movq $1, %rax			# 
-	movq $1, %rdi			#
+					# Ans: This is moving the value 1 into an accumulator register,
+	movq $1, %rax			# then moving the value 1 into a destination index register (the first argument to a function). 
+	movq $1, %rdi			# Next the address of where the value  "hello" is stored is moved into a source index register (the second argument).
 	leaq .hello.str,%rsi		#
 
 
 					# (3) What is syscall? We did not talk about this
 					# in class.
-					# Ans:
+					# Ans: A syscall is a request to the operating system to perform some task (ex: show text on the screen).
 	syscall				# Which syscall is being run?
 					# Ans:
 

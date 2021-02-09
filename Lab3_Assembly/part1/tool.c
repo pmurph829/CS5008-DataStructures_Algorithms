@@ -86,6 +86,16 @@ int main(int argc, char** argv){
 	}
 	
 	fclose(fptr);
+
+	printf("ADD: %d\n", addCount);
+	printf("SUB: %d\n", subCount);
+	printf("MUL: %d\n", mulCount);
+	printf("DIV: %d\n", divCount);
+	printf("MOV: %d\n", movCount);
+	printf("LEA: %d\n", leaCount);
+	printf("PUSH: %d\n", pushCount);
+	printf("POP: %d\n", popCount);
+	printf("RET: %d\n", retCount);
 	printf("Total Instructions: %d\nTotal Cycles: %d\n",instructions, cycles);
 
 }
