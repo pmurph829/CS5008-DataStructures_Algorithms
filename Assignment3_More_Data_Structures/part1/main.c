@@ -21,6 +21,7 @@ int print_list(dll_t* l){
     node_t* iter = l->head;
     
     printf("Count: %d\n", l->count);
+    printf("Size: %d\n", dll_size(l));
     printf("Empty?: %d\n", dll_empty(l));
     if (dll_empty(l)){
         return 0;
@@ -92,16 +93,68 @@ void unitTest2(dll_t* l){
     free_dll(l);
 }
 
+void unitTest3(dll_t* l){
+    printf("\nUNIT TEST 3\n");
+    fillFront(l, 5);
+    fillBack(l, 5);
+    print_list(l);
+    emptyFront(l);
+    fillFront(l, 5);
+    emptyBack(l);
+    free_dll(l);
+}
+
+void unitTest4(dll_t* l){
+    printf("\nUNIT TEST 4\n");
+    fillFront(l, 5);
+    print_list(l);
+    dll_insert(l, 2, 5);
+    dll_insert(l, 4, 6);
+    emptyBack(l);
+    free_dll(l);
+}
+
+void unitTest5(dll_t* l){
+    printf("\nUNIT TEST 5\n");
+    fillFront(l, 10);
+    print_list(l);
+    printf("Getting value at idx 3: %d\n", dll_get(l, 3));
+    free_dll(l);
+}
+
+void unitTest6(dll_t* l){
+    printf("\nUNIT TEST 6\n");
+    fillFront(l, 10);
+    print_list(l);
+    printf("Removing value at idx 5: %d\n", dll_remove(l, 5));
+    print_list(l);
+    free_dll(l);
+}
+
 
 // ====================================================
 // ================== Program Entry ===================
 // ====================================================
 int main(){
+    /*
     dll_t * dll = create_dll();
     unitTest1(dll);
     
     dll_t* dll2 = create_dll();
     unitTest2(dll2);
+
+    dll_t* dll3 = create_dll();
+    unitTest3(dll3);
+    
+    dll_t* dll4 = create_dll();
+    unitTest4(dll4);
+
+    dll_t* dll5 = create_dll();
+    unitTest5(dll5);
+    */
+
+    dll_t* dll6 = create_dll();
+    unitTest6(dll6);
     return 0;
 }
 

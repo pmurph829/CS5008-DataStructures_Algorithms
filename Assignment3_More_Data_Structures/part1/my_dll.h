@@ -255,8 +255,19 @@ int dll_insert(dll_t* l, int pos, int item){
 // Returns -1 if the list is NULL
 // Assume no negative numbers in the list or the number zero.
 int dll_get(dll_t* l, int pos){
-		
-		return -1; // Note: This line is a 'filler' so the code compiles.
+    if (pos < 0 || pos > l->count){
+        return 0;
+    }
+	if (l == NULL){	
+		return -1;
+    }
+    node_t* iter = l->head;
+    int i = 0;
+    for(; i<pos; i++){
+        iter = iter->next;
+    }
+    return iter->data;
+
 }
 
 // Removes the item at position pos starting at 0 ( 0 being the first item )
@@ -266,16 +277,40 @@ int dll_get(dll_t* l, int pos){
 // Returns -1 if the list is NULL
 // Assume no negative numbers in the list or the number zero.
 int dll_remove(dll_t* l, int pos){
-		
-		return -1; // Note: This line is a 'filler' so the code compiles.
+	if (pos < 0 || pos > l-> count){
+        return 0;
+    }
+    if (l == NULL){
+		return -1;
+    }
+    
+    // Find the node to remove
+    node_t* iter = l->head;
+    int i = 0;
+    for(; i<pos; i++){
+        iter = iter->next;
+    }
+
+    int data = iter->data;
+
+    // Connect the surrounding nodes
+    iter->previous->next = iter->next;
+    iter->next->previous = iter->previous;
+
+    // Free the removed node and reduce count.
+    free(iter);
+    l->count--;
+    return data;
 }
 
 // DLL Size
 // Queries the current size of a DLL
 // Returns -1 if the DLL is NULL.
 int dll_size(dll_t* t){
-	
-		return -1; // Note: This line is a 'filler' so the code compiles.
+    if (t == NULL){	
+		return -1;
+    }
+    return t->count;
 }
 
 // Free DLL
