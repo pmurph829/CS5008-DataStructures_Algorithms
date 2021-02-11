@@ -23,7 +23,6 @@ int main(int argc, char** argv){
 	int instructions = 0;
 	int cycles = 0;
 
-
 	FILE* fptr = fopen(argv[1], "r");
 	
 	while(!feof(fptr)){
