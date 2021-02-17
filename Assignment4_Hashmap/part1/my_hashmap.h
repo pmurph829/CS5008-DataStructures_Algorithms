@@ -36,7 +36,7 @@ int stringHash(char* myKey, int numberOfBuckets){
     return strlen(myKey) % numberOfBuckets;
 }
 
-// Create a function prototype to a function that takes
+// Create a function pointer to a function that takes
 // in a char* and an int.
 typedef int(*hashFunctionPointer)(char*,int) ; 
 
@@ -58,16 +58,22 @@ typedef struct hashmap{
 // Initializes the capacity(i.e. number of buckets)
 hashmap_t* hashmap_create(unsigned int _buckets){
     // Allocate memory for our hashmap
-	//TODO
+	hashmap_t* hashMap = (hashmap_t*)malloc(sizeof(hashmap_t));
+
     // Set the number of buckets
-	//TODO
+	hashMap->buckets = _buckets;
+
     // Initialize our array of lists for each bucket
-	//TODO
+	hashMap->arrayOfLists = (node_t**)malloc(sizeof(node_t*) * _buckets);
+    int i=0;
+    for (; i<_buckets; i++){
+        hashMap->arrayOfLists[i] = NULL;
+    }
     // Setup our hashFunction to point to our
     // stringHash function.
-	//TODO
+	hashMap->hashFunction = stringHash;
     // Return the new map that we have created
-    return NULL;
+    return hashMap;
 }
 
 // Frees a hashmap
