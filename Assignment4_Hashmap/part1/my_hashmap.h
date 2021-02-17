@@ -69,9 +69,10 @@ hashmap_t* hashmap_create(unsigned int _buckets){
     for (; i<_buckets; i++){
         hashMap->arrayOfLists[i] = NULL;
     }
-    // Setup our hashFunction to point to our
-    // stringHash function.
+
+    // Setup our hashFunction to point to our stringHash function.
 	hashMap->hashFunction = stringHash;
+    
     // Return the new map that we have created
     return hashMap;
 }
@@ -82,7 +83,11 @@ hashmap_t* hashmap_create(unsigned int _buckets){
 // This function should run in O(n) time
 void hashmap_delete(hashmap_t* _hashmap){
     if(_hashmap != NULL){
-	//TODO
+	    int i = 0;
+        for (; i<_hashmap->buckets; i++){
+            free(_hashmap->arrayOfLists[i]);
+        }
+        free(_hashmap);
     }
 }
 
@@ -107,7 +112,24 @@ int hashmap_hasKey(hashmap_t* _hashmap, char* key){
 //      - You should malloc the key/value in this function
 // This function should run in average-case constant time
 void hashmap_insert(hashmap_t* _hashmap,char* key,char* value){
-    // TODO
+    pair_t* pair = (pair_t*)malloc(sizeof(pair_t));
+    pair->key = (char*)malloc(strlen(key) * sizeof(char)+1);
+    pair->value = value;
+    strcpy(pair->key, key);
+
+    node_t* newNode = (node_t*)malloc(sizeof(node_t));
+    newNode->next = NULL;
+    newNode->kv = pair;
+
+    unsigned int bucket = _hashmap->hashFunction(key, _hashmap->buckets);
+
+    if (_hashmap->arrayOfLists[bucket] == NULL){
+        _hashmap->arrayOfLists[bucket] = newNode;
+    }else{
+        newNode->next = _hashmap->arrayOfLists[bucket];
+        _hashmap->arrayOfLists[bucket] = newNode;
+    }
+
 }
 
 // Return a value from a key 
