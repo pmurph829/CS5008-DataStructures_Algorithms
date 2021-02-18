@@ -39,7 +39,7 @@ int unitTest2(){
     hashmap_insert(myHashmap,"elephant", "not a farm animal");
     hashmap_insert(myHashmap,"human", "an animal that farms");
     // Print the keys
-    hashmap_printKeyValues(myHashmap);
+    hashmap_printKeys(myHashmap);
     // Finally terminate our hashmap
     hashmap_delete(myHashmap);
     return 0;

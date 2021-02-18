@@ -14,7 +14,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-
+#include <stdio.h>
 
 // A key value pair
 // This is specifically for a (char*, char*) key value pair
@@ -85,8 +85,16 @@ void hashmap_delete(hashmap_t* _hashmap){
     if(_hashmap != NULL){
 	    int i = 0;
         for (; i<_hashmap->buckets; i++){
-            free(_hashmap->arrayOfLists[i]);
+            node_t* iter = _hashmap->arrayOfLists[i];
+            while (iter != NULL){
+                node_t* tmp = iter;
+                iter = iter->next;
+                free(tmp->kv->key); 
+                free(tmp->kv);
+                free(tmp);
+            }
         }
+        free(_hashmap->arrayOfLists);
         free(_hashmap);
     }
 }
@@ -102,6 +110,7 @@ void hashmap_delete(hashmap_t* _hashmap){
 // This function should run in average-case constant time
 int hashmap_hasKey(hashmap_t* _hashmap, char* key){
 	//TODO
+    return 0;
 }
 
 // Insert a new key/value pair into a hashmap
@@ -118,6 +127,7 @@ void hashmap_insert(hashmap_t* _hashmap,char* key,char* value){
     strcpy(pair->key, key);
 
     node_t* newNode = (node_t*)malloc(sizeof(node_t));
+
     newNode->next = NULL;
     newNode->kv = pair;
 
@@ -139,9 +149,11 @@ void hashmap_insert(hashmap_t* _hashmap,char* key,char* value){
 //  - Call the _hashmap's hash function on the key
 //  - Search the _hashmap's bucket for the key and return the value
 // This function should run in average-case constant time
+/*
 char* hashmap_getValue(hashmap_t* _hashmap, char* key){
 	//TODO
 }
+*/
 
 // TODO NOTE THAT I DID NOT FINISH REMOVE KEY BECAUSE...
 // Remove a key from a hashmap
@@ -169,7 +181,32 @@ void hashmap_update(hashmap_t* _hashmap, char* key, char* newValue){
 //  - Iterate through every bucket and print out the keys
 // This function should run in O(n) time
 void hashmap_printKeys(hashmap_t* _hashmap){
-	//TODO
+	if (_hashmap != NULL){
+        int i=0;
+        for (; i<_hashmap->buckets; i++){
+            printf("Keys in bucket %d:\n", i);
+            node_t* iter = _hashmap->arrayOfLists[i];
+            while (iter != NULL){
+                printf("\t%s\n", iter->kv->key);
+                iter = iter->next;
+            }
+        }
+    }
+}
+
+// Print all key : value pairs in a hashmap
+void hashmap_printKeyValues(hashmap_t* _hashmap){
+    if (_hashmap != NULL){
+        int i = 0;
+        for (; i<_hashmap->buckets; i++){
+            printf("Pairs in bucket %d:\n", i);
+            node_t* iter = _hashmap->arrayOfLists[i];
+            while (iter != NULL){
+                printf("\t%s : %s\n", iter->kv->key, iter->kv->value);
+                iter = iter->next;
+            }
+        }
+    }
 }
 
 #endif
