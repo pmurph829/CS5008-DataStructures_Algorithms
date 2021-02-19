@@ -253,7 +253,20 @@ void hashmap_removeKey(hashmap_t* _hashmap, char* key){
 //  - Updates the value of the key to the new value
 // This function should run in average-case constant time
 void hashmap_update(hashmap_t* _hashmap, char* key, char* newValue){
-	//TODO
+	if (_hashmap == NULL){
+        return;
+    }
+    if (hashmap_hasKey(_hashmap, key)!=1){
+        return;
+    }
+    int getBucket = _hashmap->hashFunction(key, _hashmap->buckets);
+    node_t* iter = _hashmap->arrayOfLists[getBucket];
+    while (iter != NULL){
+        if (strcmp(iter->kv->key, key)==0){
+            iter->kv->value = newValue;
+            return;
+        }
+    }
 }
 
 // Prints all of the keys in a hashmap

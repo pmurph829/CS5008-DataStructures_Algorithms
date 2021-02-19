@@ -16,8 +16,8 @@ int unitTest1(){
     hashmap_printKeyValues(myHashmap);
     // Retrieve pig's value 
     printf("pig's value is %s\n",hashmap_getValue(myHashmap, "pig"));
-   // hashmap_update(myHashmap,"pig","a really cool farm animal");    
-   // printf("pig's value is updated to: %s\n",hashmap_getValue(myHashmap, "pig"));
+    hashmap_update(myHashmap,"pig","a really cool farm animal");    
+    printf("pig's value is updated to: %s\n",hashmap_getValue(myHashmap, "pig"));
     // Remove a key
     hashmap_removeKey(myHashmap,"pig");
     // Does hashmap contain key?
@@ -42,6 +42,18 @@ int unitTest2(){
     hashmap_insert(myHashmap,"elephant", "not a farm animal");
     hashmap_insert(myHashmap,"human", "an animal that farms");
     // Print the keys
+    hashmap_printKeyValues(myHashmap);
+    // Remove some keys
+    hashmap_removeKey(myHashmap, "dog");
+    hashmap_removeKey(myHashmap, "human");
+    hashmap_removeKey(myHashmap, "ox");
+    hashmap_removeKey(myHashmap, "bear");
+    printf("Remove Result: %d, %d, %d, %d\n(should all be 0)\n"
+                        , hashmap_hasKey(myHashmap, "dog")
+                        , hashmap_hasKey(myHashmap, "human")
+                        , hashmap_hasKey(myHashmap, "ox")
+                        , hashmap_hasKey(myHashmap, "bear")
+    );
     hashmap_printKeyValues(myHashmap);
     // Finally terminate our hashmap
     hashmap_delete(myHashmap);
