@@ -7,14 +7,16 @@ int unitTest1(){
     hashmap_t* myHashmap = hashmap_create(5); 
     // Insert a first key/value pair
     hashmap_insert(myHashmap,"pig", "a farm animal");
+    hashmap_insert(myHashmap, "pig", "shouldn't add");
     // Does hashmap contain key?
-    //printf("pig was added should be 1: %d\n",hashmap_hasKey(myHashmap,"pig"));
+    printf("pig was added, should be 1: %d\n",hashmap_hasKey(myHashmap,"pig"));
+    printf("bear was not added, should be 0: %d\n", hashmap_hasKey(myHashmap, "bear"));
     // Print out the keys
-    hashmap_printKeys(myHashmap);
+    hashmap_printKeyValues(myHashmap);
     // Retrieve pig's value 
-    //printf("pig's value is %s\n",hashmap_getValue(myHashmap, "pig"));
-    //hashmap_update(myHashmap,"pig","a really cool farm animal");    
-    //printf("pig's value is updated to: %s\n",hashmap_getValue(myHashmap, "pig"));
+    printf("pig's value is %s\n",hashmap_getValue(myHashmap, "pig"));
+   // hashmap_update(myHashmap,"pig","a really cool farm animal");    
+   // printf("pig's value is updated to: %s\n",hashmap_getValue(myHashmap, "pig"));
     // Remove a key
     //hashmap_removeKey(myHashmap,"pig");
     // Does hashmap contain key?
@@ -44,10 +46,11 @@ int unitTest2(){
     hashmap_delete(myHashmap);
     return 0;
 }
+
 int main(){
 
-    //printf("============ unitTest1() ================\n");
-    //unitTest1();
+    printf("============ unitTest1() ================\n");
+    unitTest1();
     printf("============ unitTest2() ================\n");
     unitTest2();
     

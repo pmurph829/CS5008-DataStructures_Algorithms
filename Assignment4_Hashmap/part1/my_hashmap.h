@@ -53,6 +53,7 @@ typedef struct hashmap{
     hashFunctionPointer hashFunction;
 }hashmap_t;
 
+
 // Creates a new hashmap
 // Allocates memory for a new hashmap.
 // Initializes the capacity(i.e. number of buckets)
@@ -65,6 +66,9 @@ hashmap_t* hashmap_create(unsigned int _buckets){
 
     // Initialize our array of lists for each bucket
 	hashMap->arrayOfLists = (node_t**)malloc(sizeof(node_t*) * _buckets);
+    if (hashMap == NULL || hashMap->arrayOfLists == NULL){
+        return NULL;
+    }
     int i=0;
     for (; i<_buckets; i++){
         hashMap->arrayOfLists[i] = NULL;
@@ -75,6 +79,13 @@ hashmap_t* hashmap_create(unsigned int _buckets){
     
     // Return the new map that we have created
     return hashMap;
+}
+
+// Free all memory associated with a single node.
+void freeNode(node_t* n){
+    free(n->kv->key);
+    free(n->kv);
+    free(n);
 }
 
 // Frees a hashmap
@@ -89,9 +100,7 @@ void hashmap_delete(hashmap_t* _hashmap){
             while (iter != NULL){
                 node_t* tmp = iter;
                 iter = iter->next;
-                free(tmp->kv->key); 
-                free(tmp->kv);
-                free(tmp);
+                freeNode(tmp);
             }
         }
         free(_hashmap->arrayOfLists);
@@ -109,22 +118,36 @@ void hashmap_delete(hashmap_t* _hashmap){
 //  - Search that bucket to see if the key exists.
 // This function should run in average-case constant time
 int hashmap_hasKey(hashmap_t* _hashmap, char* key){
-	//TODO
+    if (_hashmap == NULL){
+        return -9999;
+    }
+    int getBucket = _hashmap->hashFunction(key, _hashmap->buckets);
+    node_t* iter = _hashmap->arrayOfLists[getBucket];
+    while (iter != NULL){
+        if ( strcmp(iter->kv->key, key)==0 ){
+            return 1;
+        }
+    }
     return 0;
-}
-
-// Insert a new key/value pair into a hashmap
+}   
+// Insert a new key/value pair into the hashmap
 // The algorithm is:
 //  - If a key already exists, do not add it--return
 //  - Call the _hashmap's hash function on the key
 //  - Store the key/value pair at the end of the buckets chain
-//      - You should malloc the key/value in this function
-// This function should run in average-case constant time
-void hashmap_insert(hashmap_t* _hashmap,char* key,char* value){
+//      - You should malloc the key/value in this funcion
+// This function should run in average-case constant time.
+void hashmap_insert(hashmap_t* _hashmap, char* key, char* value){
+    if (_hashmap == NULL){
+        return;
+    }
+    if (hashmap_hasKey(_hashmap, key)==1){
+        return;
+    }
     pair_t* pair = (pair_t*)malloc(sizeof(pair_t));
-    pair->key = (char*)malloc(strlen(key) * sizeof(char)+1);
-    pair->value = value;
+    pair->key = (char*)malloc((strlen(key) * sizeof(char))+1);
     strcpy(pair->key, key);
+    pair->value = value;
 
     node_t* newNode = (node_t*)malloc(sizeof(node_t));
 
@@ -149,13 +172,27 @@ void hashmap_insert(hashmap_t* _hashmap,char* key,char* value){
 //  - Call the _hashmap's hash function on the key
 //  - Search the _hashmap's bucket for the key and return the value
 // This function should run in average-case constant time
-/*
-char* hashmap_getValue(hashmap_t* _hashmap, char* key){
-	//TODO
-}
-*/
 
-// TODO NOTE THAT I DID NOT FINISH REMOVE KEY BECAUSE...
+char* hashmap_getValue(hashmap_t* _hashmap, char* key){
+    if ( _hashmap == NULL){
+        return NULL;
+    }
+	int getBucket = _hashmap->hashFunction(key, _hashmap->buckets);
+    if (_hashmap->arrayOfLists[getBucket] == NULL){
+        return NULL;
+    }
+    printf("Strlen key: %lu\n", strlen(key));
+    node_t* iter = _hashmap->arrayOfLists[getBucket];
+    while (iter != NULL){
+        if ( strcmp(iter->kv->key, key)==0 ){
+            return iter->kv->value;
+        }
+        iter = iter->next;
+    }
+    return NULL;
+}
+
+
 // Remove a key from a hashmap
 // The algorithm is:
 //  - Determine if the key exists--return if it does not.
@@ -163,7 +200,40 @@ char* hashmap_getValue(hashmap_t* _hashmap, char* key){
 //  - Search the _hashmap's bucket for the key and then remove it
 // This function should run in average-case constant time
 void hashmap_removeKey(hashmap_t* _hashmap, char* key){
-	//TODO
+    if (_hashmap ==NULL){
+        return;
+    }
+    
+	if (hashmap_hasKey(_hashmap, key)==1){
+        int getBucket = _hashmap->hashFunction(key, _hashmap->buckets);
+        node_t* iter = _hashmap->arrayOfLists[getBucket];
+        //node_t* tmp = NULL;
+        while (iter != NULL){
+            /*
+            if (iter->next != NULL){ // iter is in the middle of the list
+                if ( strcmp(iter->next->kv->key, key)==0 ){
+                    tmp = iter->next;
+                    iter->next = iter->next->next;
+                }
+            }
+            if ( strcmp(iter->kv->key, key)==0 ){
+                tmp = iter;
+            }
+            iter = iter->next;
+            freeNode(tmp);
+            */
+            
+            if ( strcmp(iter->kv->key, key)==0 ){
+                if (iter->next != NULL){
+                    iter->next = iter->next->next;
+                }
+                freeNode(iter);
+                return;
+            }
+
+        }
+    }
+    return;
 }
 
 // Update a key with a new Value
