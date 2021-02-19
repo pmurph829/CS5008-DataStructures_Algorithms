@@ -60,13 +60,15 @@ typedef struct hashmap{
 hashmap_t* hashmap_create(unsigned int _buckets){
     // Allocate memory for our hashmap
 	hashmap_t* hashMap = (hashmap_t*)malloc(sizeof(hashmap_t));
-
+    if (hashMap == NULL){
+        return NULL;
+    }
     // Set the number of buckets
 	hashMap->buckets = _buckets;
 
     // Initialize our array of lists for each bucket
 	hashMap->arrayOfLists = (node_t**)malloc(sizeof(node_t*) * _buckets);
-    if (hashMap == NULL || hashMap->arrayOfLists == NULL){
+    if (hashMap->arrayOfLists == NULL){
         return NULL;
     }
     int i=0;
@@ -127,6 +129,7 @@ int hashmap_hasKey(hashmap_t* _hashmap, char* key){
         if ( strcmp(iter->kv->key, key)==0 ){
             return 1;
         }
+        iter = iter->next;
     }
     return 0;
 }   
@@ -192,7 +195,6 @@ char* hashmap_getValue(hashmap_t* _hashmap, char* key){
     return NULL;
 }
 
-
 // Remove a key from a hashmap
 // The algorithm is:
 //  - Determine if the key exists--return if it does not.
@@ -200,6 +202,7 @@ char* hashmap_getValue(hashmap_t* _hashmap, char* key){
 //  - Search the _hashmap's bucket for the key and then remove it
 // This function should run in average-case constant time
 void hashmap_removeKey(hashmap_t* _hashmap, char* key){
+    
     if (_hashmap ==NULL){
         return;
     }
@@ -209,25 +212,11 @@ void hashmap_removeKey(hashmap_t* _hashmap, char* key){
         node_t* iter = _hashmap->arrayOfLists[getBucket];
         //node_t* tmp = NULL;
         while (iter != NULL){
-            /*
-            if (iter->next != NULL){ // iter is in the middle of the list
-                if ( strcmp(iter->next->kv->key, key)==0 ){
-                    tmp = iter->next;
-                    iter->next = iter->next->next;
-                }
-            }
-            if ( strcmp(iter->kv->key, key)==0 ){
-                tmp = iter;
-            }
-            iter = iter->next;
-            freeNode(tmp);
-            */
-            
             if ( strcmp(iter->kv->key, key)==0 ){
                 if (iter->next != NULL){
                     iter->next = iter->next->next;
                 }
-                freeNode(iter);
+                //freeNode(iter);
                 return;
             }
 

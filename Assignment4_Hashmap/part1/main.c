@@ -6,6 +6,7 @@ int unitTest1(){
     // Create our hashmap
     hashmap_t* myHashmap = hashmap_create(5); 
     // Insert a first key/value pair
+    
     hashmap_insert(myHashmap,"pig", "a farm animal");
     hashmap_insert(myHashmap, "pig", "shouldn't add");
     // Does hashmap contain key?
@@ -18,9 +19,9 @@ int unitTest1(){
    // hashmap_update(myHashmap,"pig","a really cool farm animal");    
    // printf("pig's value is updated to: %s\n",hashmap_getValue(myHashmap, "pig"));
     // Remove a key
-    //hashmap_removeKey(myHashmap,"pig");
+    hashmap_removeKey(myHashmap,"pig");
     // Does hashmap contain key?
-    //printf("pig was removed should be 0: %d\n",hashmap_hasKey(myHashmap,"pig"));
+    printf("pig was removed should be 0: %d\n",hashmap_hasKey(myHashmap,"pig"));
     // Finally terminate our hashmap
     hashmap_delete(myHashmap);
     return 0;
