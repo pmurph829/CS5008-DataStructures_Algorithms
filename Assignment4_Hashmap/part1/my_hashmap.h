@@ -46,7 +46,6 @@ typedef struct hashmap{
     node_t** arrayOfLists;  // An array of linked lists for our buckets
                             // Read another way
                             //      - an array of node_t*
-
     // A function pointer to a hash function
     // The hash_function must take in a 'char*' as a key, and have a
     // second parameter specifying the number of buckets.
@@ -266,6 +265,7 @@ void hashmap_update(hashmap_t* _hashmap, char* key, char* newValue){
             iter->kv->value = newValue;
             return;
         }
+        iter = iter->next;
     }
 }
 
