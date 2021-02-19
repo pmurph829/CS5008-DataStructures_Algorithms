@@ -184,7 +184,7 @@ char* hashmap_getValue(hashmap_t* _hashmap, char* key){
     if (_hashmap->arrayOfLists[getBucket] == NULL){
         return NULL;
     }
-    printf("Strlen key: %lu\n", strlen(key));
+    
     node_t* iter = _hashmap->arrayOfLists[getBucket];
     while (iter != NULL){
         if ( strcmp(iter->kv->key, key)==0 ){
@@ -210,21 +210,42 @@ void hashmap_removeKey(hashmap_t* _hashmap, char* key){
 	if (hashmap_hasKey(_hashmap, key)==1){
         int getBucket = _hashmap->hashFunction(key, _hashmap->buckets);
         node_t* iter = _hashmap->arrayOfLists[getBucket];
-        //node_t* tmp = NULL;
+        node_t* prev = NULL;
+        
         while (iter != NULL){
             if ( strcmp(iter->kv->key, key)==0 ){
-                if (iter->next != NULL){
-                    iter->next = iter->next->next;
+                
+                // Case where there is only one node:
+                if (iter->next ==NULL && prev ==NULL){
+                    _hashmap->arrayOfLists[getBucket] = NULL;
+                    freeNode(iter);
+                    return;
+                
+                // Case where iter is the first node in the list:
+                } else if (iter->next !=NULL && prev==NULL){
+                    _hashmap->arrayOfLists[getBucket] = iter->next;
+                    freeNode(iter);
+                    return;
+                
+                // Case where iter is the last node in the list:
+                } else if (iter->next ==NULL && prev !=NULL){
+                    prev->next = NULL;
+                    freeNode(iter);
+                    return;
+                
+                // Case where iter is in the middle of the list:
+                } else if (iter->next !=NULL && prev !=NULL){
+                    prev->next = iter->next;
+                    freeNode(iter);
+                    return;
                 }
-                //freeNode(iter);
-                return;
             }
-
+            prev = iter;
+            iter = iter->next;
         }
+        return;
     }
-    return;
 }
-
 // Update a key with a new Value
 // The algorithm is:
 //  - Returns immediately if the key does not exist
