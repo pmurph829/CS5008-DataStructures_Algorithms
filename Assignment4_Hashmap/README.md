@@ -1,12 +1,14 @@
 # TODO Please edit the following information in your assignment
 
-- Name:
-- How many hours did it take you to complete this assignment?
-- Did you collaborate with any other students/TAs/Professors?
+- Name: Peter Murphy
+- How many hours did it take you to complete this assignment? 6
+- Did you collaborate with any other students/TAs/Professors? No
 - Did you use any external resources? (Cite them below)
-  - tbd
-  - tbd
-- (Optional) What was your favorite part of the assignment?
+  - https://stackoverflow.com/questions/4132849/how-does-the-strlen-function-work-internally
+  - https://www.geeksforgeeks.org/hashing-set-3-open-addressing/
+  - https://en.wikipedia.org/wiki/Open_addressing
+  - https://en.wikipedia.org/wiki/Hash_table#Collision_resolution
+- (Optional) What was your favorite part of the assignment? I really enjoyed figuring out how to best implement the removeKey function
 - (Optional) How would you improve the assignment?
 
 # Logistics
