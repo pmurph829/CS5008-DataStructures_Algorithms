@@ -17,20 +17,22 @@ int main(){
     argv2[1] = "'testing'"; // Second argument (pt 2)
     argv2[2] = NULL;
 
-    argv3[3] = "/bin/nl"; // Third argument (pt 1)
-    argv3[4] = "example1.c"; // Third argument (pt 2)
-    argv3[5] = NULL; // Terminate args
+    argv3[0] = "/bin/nl"; // Third argument (pt 1)
+    argv3[1] = "example1.c"; // Third argument (pt 2)
+    argv3[2] = NULL; // Terminate args
+    
+    char** commands[] = {argv1, argv2, argv3};
 
-    if (fork()==0){
-        execve(argv1[0], argv1, NULL); // Execute first arg
-        execve(argv2[0], argv2, NULL); // Execute second arg
-        execve(argv3[0], argv3, NULL); // Execute third arg
-
-        exit(1);
-    } else {
-       wait(NULL); // Wait for the child process to finish before exiting parent
-       printf("Program finished\n");
+    for (int i=0; i<3; i++){
+        if (fork()==0){
+            printf("Running Command # %d\n", i);
+            execve(commands[i][0], commands[i], NULL);
+            exit(1);
+        } else {
+        wait(NULL); // Wait for the child process to finish before exiting parent
+        }
     }
+    printf("Program Finished\n");
 
     return 0;
 
