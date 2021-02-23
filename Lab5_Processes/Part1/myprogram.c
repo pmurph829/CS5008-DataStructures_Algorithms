@@ -22,8 +22,8 @@ int main(){
     argv3[2] = NULL; // Terminate args
     
     char** commands[] = {argv1, argv2, argv3};
-
-    for (int i=0; i<3; i++){
+    int i = 0;
+    for (; i<3; i++){
         if (fork()==0){
             printf("Running Command # %d\n", i);
             execve(commands[i][0], commands[i], NULL);
