@@ -77,8 +77,8 @@ int mini_cd(char** args){
         printf("No argument passed to cd.\n");
     // Use chdir to change directory to the specified location
     // If this fails, print an error message.
-    } else if (chdir(args[1]) != 1){
-        printf("error with cd");
+    } else if (chdir(args[1]) != 0){
+        printf("error with cd\n");
     }
     return 1;
 }
