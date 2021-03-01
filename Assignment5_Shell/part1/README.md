@@ -102,21 +102,28 @@ At a high level, implementing mini-shell takes the following components:
 	2. (Edit the readme below with your built-in command)
 
 -----------------------------------------------------
-NAME: 
-
-*edit me*
+NAME: game
 
 SYNOPSIS: 
 
-*edit me and add in a short description of the command and its usage*
+Plays a simple guessing game for the user.
 
 DESCRIPTION:
 
-*Write a longer description of what he command does*
+Plays 5 rounds of a number guessing game. The user can specify the difficulty of the game as easy, medium, or hard. Easy difficulty chooses a number between 
+1 and 5, medium difficulty chooses a number between 1 and 10, and hard difficulty chooses a difficulty between 1 and 20. The user specifiys the difficulty 
+with the command: "game <difficulty>" where <difficulty> is replaced with easy, medium, or hard. Default difficulty is medium. Once the game is started, the 
+user guesses until they get the correct number (with feedback). The round ends when the user gets the right number. After 5 rounds, a summary is printed out 
+that shows the number of guesses for each round.
 
 NOTES:
 
-*Enter two or three sentences (minimum) in how you implemented the built-in command.*
+I implemented the built-in commands by creating funcions that correspond to a command. Each command takes the same parameter, and has the same retun type. This
+allows for all the built-in command function pointers to be placed into an array. I also had an array of corresponding commands (strings)) that can be compared 
+to the user input. If the user enters a command that matches a command in the array, the appropriate function pointer can be selected from the function array, 
+which calls the correct function. Since each function takes args[] as a parameter, they all have access to any other information the user provides. This is how
+I allowed the user to change the difficulty of the game, since the game function checks if the second element in the args[] array matches the string 'easy', 
+'medium', or 'hard' and updates the guessing range accordingly.
 
 -----------------------------------------------------
 
