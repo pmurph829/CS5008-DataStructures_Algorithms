@@ -109,11 +109,15 @@ int mini_help(char** args){
     } else if (strcmp(args[1],"game")==0){
         printf("Help for the guessing game:\n");
         printf("\tPlays 5 rounds of a guessing game.\n");
-        printf("\tEach round, a number from 1-10 is randomly generated.\n");
+        printf("\tEach round, a number is randomly generated.\n");
+        printf("\t >> Easy difficulty range is 1 - 5\n");
+        printf("\t >> Medium (default) difficulty range is 1 - 10\n");
+        printf("\t >> Hard difficulty range is 1 - 20\n");
         printf("\tThe player will guess numbers until they get the correct answer.\n");
         printf("\tFeedback is given to guide the player to the correct answer.\n");
         printf("\tAfter 5 rounds, the number of guesses for each round is displayed.\n");
-        printf("\tEnter 'easy', 'medium' or 'hard' after the game command\n\tto change the difficulty.\n");
+        printf("\tEnter 'easy', 'medium' or 'hard' after the game command\n");
+        printf("\tto change the difficulty. Default is medium.\n");
     } else {
         printf("error: %s option not found for help command\n", args[1]);
     }
