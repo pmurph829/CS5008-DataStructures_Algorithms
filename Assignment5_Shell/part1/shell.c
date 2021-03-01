@@ -6,11 +6,70 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <signal.h>
+#include <time.h>
 
 #define BUFFER_SIZE 80
 
-// Built-in functions
-char* builtInCmds[] = {"cd", "help", "exit"};
+// Built in command names
+char* builtInCmds[] = {"cd", "help", "exit", "game"};
+
+// Code for a guessing game - custom command. Note, this is from A1.
+int mini_guess(char** args){
+    int guess;
+    int numGames=0;
+    int guesses[5];
+    int keepGuessing=1;
+    int answer;
+    int i = 0;
+    int j = 0;
+    srand(time(NULL));
+    printf("==========================\n");
+    printf("    MINI GUESSING GAME    \n");
+    printf("==========================\n");
+    for (numGames; numGames<5; numGames++){
+        printf("==========================\n");
+        printf("         ROUND %d\n", numGames);
+        printf("==========================\n");
+        // Determine the range for the number depending on user input.
+        if (args[1] == NULL || strcmp(args[1],"medium")==0){
+            printf("Medium difficulty: Guess between 1 and 10!\n");
+            answer = 1 + rand() % 10;
+        } else if (strcmp(args[1],"easy")==0){
+            printf("Easy difficulty: Guess between 1 and 5!\n");
+            answer = 1 + rand() % 5;
+        } else if (strcmp(args[1], "hard")==0){
+            printf("Hard difficulty: Guess between 1 and 20!\n");
+            answer = 1 + rand() % 20;
+        }
+        while(keepGuessing){
+            i++;
+            printf("Guess #%d: ", i);
+            scanf("%d", &guess);
+            if (guess == answer) {
+                printf("You mini-guessed it!\n");
+                guesses[numGames] = i;
+                i = 0;
+                keepGuessing = 0;
+            } else if (guess < answer) {
+                printf("Too mini! (guess higher)\n");
+            } else {
+                printf("Not mini enough! (guess lower)\n");
+            }
+        }
+        keepGuessing = 1;
+    }
+    printf("==========================\n");
+    printf("        GAME  OVER        \n");
+    printf("==========================\n");
+    for (; j<5; j++){
+        if (guesses[j] == 1){
+            printf("Round %d took %d guess\n", j, guesses[j]);
+        } else {
+            printf("Round %d took %d gueses\n", j, guesses[j]);
+        }
+    }
+    return 1;
+}
 
 // Code for the cd command
 int mini_cd(char** args){
@@ -47,6 +106,14 @@ int mini_help(char** args){
         printf("\tUse exit to terminate the shell.\n");
         printf("\tIf running a shell within a shell,\n");
         printf("\tthe exit command will terminate the most recent shell.\n");
+    } else if (strcmp(args[1],"game")==0){
+        printf("Help for the guessing game:\n");
+        printf("\tPlays 5 rounds of a guessing game.\n");
+        printf("\tEach round, a number from 1-10 is randomly generated.\n");
+        printf("\tThe player will guess numbers until they get the correct answer.\n");
+        printf("\tFeedback is given to guide the player to the correct answer.\n");
+        printf("\tAfter 5 rounds, the number of guesses for each round is displayed.\n");
+        printf("\tEnter 'easy', 'medium' or 'hard' after the game command\n\tto change the difficulty.\n");
     } else {
         printf("error: %s option not found for help command\n", args[1]);
     }
@@ -63,7 +130,8 @@ int mini_exit(char** args){
 int (*builtInFunctions[]) (char**) = {
     &mini_cd,
     &mini_help,
-    &mini_exit
+    &mini_exit,
+    &mini_guess
 };
 
 // Signal handler to print out message when Ctrl+C is pressed.
