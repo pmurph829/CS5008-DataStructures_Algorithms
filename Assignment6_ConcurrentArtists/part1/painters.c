@@ -213,7 +213,7 @@ int main(){
         artist_t* rookie = malloc(sizeof(artist_t));
         rookie->x = rand() % CANVAS_WIDTH-1;
         rookie->y = rand() % CANVAS_HEIGHT-1;
-        rookie->r = rand() % 255;
+        rookie->r = 4 * i; // Give each rookie a unique color
         rookie->g = rand() % 255;
         rookie->b = rand() % 255;
         rookie->strokes = 5000;
