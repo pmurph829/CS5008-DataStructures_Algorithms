@@ -126,7 +126,7 @@ void unitTest6(dll_t* l){
     printf("\nUNIT TEST 6\n");
     fillFront(l, 10);
     print_list(l);
-    printf("Removing value at idx 5: %d\n", dll_remove(l, 5));
+    printf("Removing value at idx 0: %d\n", dll_remove(l, 0));
     print_list(l);
     free_dll(l);
 }

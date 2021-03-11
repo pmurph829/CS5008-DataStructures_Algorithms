@@ -169,7 +169,13 @@ int dll_pop_front(dll_t* t){
     node_t* oldHead = t->head;
 
     // Update the head node
-    t->head = t->head->next;
+    if (t->count == 1){
+        t->head = NULL;
+        t->tail = NULL;
+    } else {
+        t->head->next->previous = NULL;
+        t->head = t->head->next;
+    }
 
     // Free memory allocated to the old head and reduce count.
     free(oldHead);
@@ -196,7 +202,13 @@ int dll_pop_back(dll_t* t){
     node_t* oldTail = t->tail;
     
     // Update the tail node
-    t->tail = t->tail->previous;
+    if (t->count == 1){
+        t->head = NULL;
+        t->tail = NULL;
+    } else {
+        t->tail->previous->next = NULL;
+        t->tail = t->tail->previous;
+    }
 
     // Free memory allocated ot the old tail and reduce count.
     free(oldTail);
@@ -255,12 +267,13 @@ int dll_insert(dll_t* l, int pos, int item){
 // Returns -1 if the list is NULL
 // Assume no negative numbers in the list or the number zero.
 int dll_get(dll_t* l, int pos){
-    if (pos < 0 || pos > l->count){
+    if (pos < 0 || pos >= l->count){
         return 0;
     }
 	if (l == NULL){	
 		return -1;
     }
+    
     node_t* iter = l->head;
     int i = 0;
     for(; i<pos; i++){
@@ -277,11 +290,19 @@ int dll_get(dll_t* l, int pos){
 // Returns -1 if the list is NULL
 // Assume no negative numbers in the list or the number zero.
 int dll_remove(dll_t* l, int pos){
-	if (pos < 0 || pos > l-> count){
+	if (l == NULL){
+        return -1;
+    }
+    if (pos < 0 || pos >= l-> count){
         return 0;
     }
-    if (l == NULL){
-		return -1;
+    
+    // Check if pos is at front or back of list
+    if (pos == l->count){
+        return dll_pop_back(l);
+    }
+    if (pos == 0){
+        return dll_pop_front(l);
     }
     
     // Find the node to remove
