@@ -13,14 +13,24 @@
 int findMinimum(int* array, int start, int stop){
     // TODO: Iterate through a subset of the array and find the minimum value.
     //       Return the index of that minimum value.
-  
-    return -1; // TODO: Modify this to return the
+    int min = array[start];
+    int minIdx = start;
+    for(; start<stop; start++){
+        if(array[start] < min){
+            min = array[start];
+            minIdx = start;
+        }
+    } 
+    return minIdx;
 }
 
 // Swaps two numbers in an array
 // Input: The 'address of' an index into an array for positions in an array.
 void swap(int* a, int* b){
     // TODO: Swap two integers in an array.
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
 }
 
 // Provided below is a sort function. I have also
@@ -34,6 +44,11 @@ void swap(int* a, int* b){
 // Output: No value is returned, but 'array' should be modified to store a sorted array of numbers.
 void sortIntegers(int* array, unsigned int size){
     // TODO: Implement selection sort
+    int minIdx=0;
+    for(int i=0; i<size; i++){
+        minIdx = findMinimum(array, i, size);
+        swap(&array[i], &array[minIdx]);
+    }
 }
 
 
