@@ -10,7 +10,12 @@ Discuss and answer the following questions (Please make sure to elaborate and ju
 
 ## Answers:
 
-1. *edit your answer here for question 1*
-2. *edit your answer here for question 2*
-3. *edit your answer here for question 3*
-4. *edit your answer here for question 4*
+1. The worst case time complexity for insertion sort is O(n^2). If the list is in reverse order, the algorithm
+    must traverse the entire array, and compare each element to each sorted element to sort the list.
+2. The best case time complexity for insertion sort is actually O(n). If the list is already sorted, the
+    algorithm only needs to traverse the array once without swapping any elements.
+3. Insertion sort does not require any additional storage, because it is done in place.
+4. Stable sorting occurs if two adjacent, equal elements in an array remain in the same order after sorting
+    (as opposed to being interchanged, which would still be sorted). Insertion sort is a stable algorithm
+    because if two elements are equal, the algorithm just moves on to the next comparison without swapping
+    anything.
