@@ -9,7 +9,7 @@
 
 ## Answers:
 
-1. *edit your answer here for question 1*
-2. *edit your answer here for question 2*
-3. *edit your answer here for question 3*
-4. *edit your answer here for question 4*
+1. The worst-case complexity of selection sort is O(n^2).
+2. The best-case complexity of selection sort is also O(n^2), since we would still need to traverse the list and do comparisons to find the minimum even if the minimum is the first element.
+3. Selection sort does not require any extra storage.
+4. No. Even though finding a node in a linked list is O(n), it is still less than O(n^2), so the time complexity of the sorting algorithm would not be different at a large n.
