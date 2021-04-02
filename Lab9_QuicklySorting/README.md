@@ -98,7 +98,8 @@ void swapStrings(char** s1, char** s2){
 
 <!--**Answer the following with your partner:**--> **Answer the following here**: How do you think the strcmp function is implemented? i.e. What would your algorithm be in a sentence or two?
 
-*edit your answer here*
+I think the strcmp function would loop over the characters in the first string and check that each character matches the 
+corresponding characters of the other string. If there is a mismatch, it could return the difference in ASCII values.
 
 # Part 3 - Quick sort
 
