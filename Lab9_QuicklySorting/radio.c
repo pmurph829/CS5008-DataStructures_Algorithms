@@ -72,10 +72,25 @@ void bruteForceSort(char** array, unsigned int start, unsigned int end){
 // @Brief   Helper funcion for quicksort
 int partition(char** array, unsigned int low, unsigned int high){
     // TODO:
+    char** pivot = &array[high];
+    int i = low - 1;
+    for (int j=low; j <= high-1; j++) {
+        if (strcmp(array[j], *pivot)>=0) {
+            i++;
+            swapStrings(&array[i], &array[j]);
+        }
+    }
+    swapStrings(&array[i+1], &array[high]);
+    return i+1;
 }
 
 void quicksort(char** array, unsigned int low, unsigned int high){
     // TODO:
+    if (low < high) {
+        int pivot = partition(array, low, high);
+        quicksort(array, low, pivot - 1);
+        quicksort(array, pivot + 1, high);
+    }
 }
 
 
@@ -95,7 +110,7 @@ int main(){
   clock_t start1,end1;
   start1 = clock();
   // perform bruteForceSort after starting your timer
-  bruteForceSort(musicDatabase1,0,13594);
+  bruteForceSort(musicDatabase1,0,13593);
   end1 = clock(); 
   double experiment1 = ((double)(end1-start1)/CLOCKS_PER_SEC);
    // ===========================================
@@ -107,7 +122,7 @@ int main(){
   clock_t start2,end2;
   start2 = clock();
   // perform quicksort after starting your timer
-  quicksort(musicDatabase2,0,13594);  
+  quicksort(musicDatabase2,0,13593);  
   end2 = clock();
   double experiment2 = ((double)(end2-start2)/CLOCKS_PER_SEC);
   // ===========================================

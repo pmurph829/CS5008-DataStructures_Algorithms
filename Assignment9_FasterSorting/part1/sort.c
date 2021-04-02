@@ -2,18 +2,85 @@
 
 // =================== Libraries ==================
 #include <stdio.h> // Include file for standart input/output
-
+#include <stdlib.h>
 // =============== Helper Functions ===============
 
 // Merges two subarrays of arr[]. 
 // First subarray is arr[l..m] 
 // Second subarray is arr[m+1..r] 
+// Name: merge
+// Inputs: (1) arr[] is the array to be sorted.
+//         (2) l is the leftmost index of the first subarray.
+//         (3) m is the midpoint between the two subarrays.
+//              m is also the last index of the first subarray.
+//         (4) r is the last index of the second subarray.
+//Returns: Nothing is returned, but the section of arr from index = l to index = r
+//should be sorted after this function is called.
 void merge(int arr[], int l, int m, int r) {
-  //TODO: implement merge.
-}
+    int i, j, k;
+    // length1 is the length of the first (right) array
+    int length1 = m - l + 1;
+    // length2 is the length of the second (left) array
+    int length2 = r - m;
+
+    int L[length1];
+    int R[length2];
+    
+    // fill in the left subarray 
+    for (i = 0; i < length1; i++) {
+        L[i] = arr[l + i];
+    }
+    // fill in the right subarray
+    for (j = 0; j < length2; j++) {
+        R[j] = arr[m + 1 + j];
+    }
+    i = 0;
+    j = 0;
+    k = l;
+    // traverse each subarray and compare elements to build the sorted array.
+    while (i < length1 && j < length2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+    // If the right subarray is empty, add the rest of the left subarray
+    // to the sorted array.
+    while (i < length1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+    // If the left subarray is empty, add the rest of the right subarray
+    // to the sorted array.
+    while (j < length2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+ }
+
 
 // Implement your mergeSort function here
-// TODO:
+// Name: mergeSort
+// Inputs: (1) array[] is a pointer to the array to be sorted.
+//         (2) l is the leftmost index of the array to be sorted.
+//         (3) r is the rightmost index of the array to be sorted.
+// Returns: Nothing is returned from this function, but array should be sorted
+// after the function is called. 
+void mergeSort(int array[], int l, int r) {
+    if (l < r) {
+        int m = (l + r)/2;
+        mergeSort(array, l, m);
+        mergeSort(array, m+1, r);
+        
+        merge(array, l, m, r);
+    }
+}
 
 // Provided below is a sort function. We have also
 // provided a template for how to document functions
@@ -25,7 +92,7 @@ void merge(int arr[], int l, int m, int r) {
 //          (2) 'size' tells us how big the array of data is we are sorting.
 // Output: No value is returned, but 'array' should be modified to store a sorted array of numbers.
 void sortIntegers(int* array, unsigned int size){
-    // TODO: make a call to your mergeSort function here
+    mergeSort(array, 0, size-1);
 }
 
 
