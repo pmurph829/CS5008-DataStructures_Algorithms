@@ -8,19 +8,26 @@
 
 1. Explain: What do you think the Big-O (worst-case) complexity of the merge sort algorithm is and why? 
 
-*edit your answer here for Task 2 question 1*
+Merge sort is O(n * log(n)). This is because dividing the problem into subarrays is O(log(n)) and merging
+the subarrays back together is O(n). Combined, these two operations make merge sort O(n * log(n)).
 
 2. Explain: What do you think the best-case complexity of the merge sort algorithm is and why?
 
-*edit your answer here for Part 2 question 2*
+The best case complexity of merge sort is still O(n * log(n)). This is because the split and recombine action
+is done even if the array is already sorted.
 
 3. Does merge sort require any additional storage beyond the original array? If so how much and why?
 
-*edit your answer here for Part 2 question 3*
+Yes, merge sort has space complexity of O(n). This is due to the subarrays that are created after each split.
 
 4. How much time in Big-O does it take to merge all of the subarrays together? Explain or draw why?
 
-*edit your answer here for Part 2 question 4*
+It takes O(n) time to merge the subarrays together. This is because the algorithm needs to traverse over each
+subarray and compare the elements at the head of each list, so it can recombine the elements in order. This
+results in "visiting" each element in the original array, thus O(n) for the merge portion of the algorithm.
+Of course, the number of subarrays the problem is split into depends on the size of the initial array, and 
+more splits means more merge operations. However, this will result in a constant coefficient which can be
+dropped in the big-O notation.
 
 
 ## Interview Prep (Optional +1% Bonus on assignment)
