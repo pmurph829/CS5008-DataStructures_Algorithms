@@ -20,9 +20,19 @@ typedef struct TreeNode{
 // Make sure to print out each node you visit, and only print it out once!
 // **Hint** Think recursively
 void dfs(TreeNode_t* start){
-    // TODO: Hmm, how can I look through both branches of the node?
-    //       Hmm, when do I stop?
-    //
+
+    // print current node
+    printf("%c ", start->data);
+    // if both left and right are null, return
+    if (start->left == NULL && start->right == NULL) {
+        return;
+    }
+    // recursively call dfs on left
+    dfs(start->left);
+    // recursively call dfs on right (if not null)
+    if (start->right != NULL) {
+        dfs(start->right);
+    }
 }
 
 int main(){
@@ -79,9 +89,10 @@ int main(){
   
   // Perform the dfs
   dfs(start);
-  
+  printf("\n");
   // Perform the dfs at a different spot)
-  
+  dfs(a);
+  printf("\n");
   // Free each of our nodes.
   // Note: It may be helful in the future to write
   //       a helper function to free the nodes.
