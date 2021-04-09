@@ -26,23 +26,6 @@
 // We will use our own test suite (i.e. replacing this file)
 // in order to test your implementation from my_bst.
 
-// Function to create a filled bst
-bst_t* fill_bst(){
-    bst_t* testBST = bst_create();
-    bst_add(testBST, 21);
-    bst_add(testBST, 28);
-    bst_add(testBST, 14);
-    bst_add(testBST, 11);
-    bst_add(testBST, 25);
-    bst_add(testBST, 18);
-    bst_add(testBST, 5);
-    bst_add(testBST, 15);
-    bst_add(testBST, 32);
-    bst_add(testBST, 27);
-    bst_add(testBST, 30);
-    return testBST;
-}
-
 // Testing allocation
 int unitTest1(){
     int result;
@@ -81,50 +64,14 @@ int unitTest3(){
 }
 
 int unitTest4(){
-    int size;
-    bst_t* testBST = fill_bst();
-    printf("Printing bst (ascending, descending)\n");
-    bst_print(testBST, 0);
-    bst_print(testBST, 1);
-    size = bst_size(testBST);
-    bst_free(testBST);
+    bst_t* testBST = bst_create();
+    bst_add(testBST, 21);
+    bst_add(testBST, 28);
+    bst_add(testBST, 14);
+    bst_add(testBST, 11);
+    bst_add(testBST, 25);
+    bst_add(testBST, 18);
 
-    if (size == 11) {
-        return 1;
-    }
-    return 0;
-}
-
-int unitTest5() {
-    int sum;
-    bst_t* bst = fill_bst();
-    sum = bst_sum(bst);
-    bst_free(bst);
-    if (sum == 226) {
-        return 1;
-    }
-    return 0;
-}
-
-int unitTest6() {
-    bst_t* bst = fill_bst();
-    if (bst_find(bst, 21) != 1) {
-        return 0;
-    }
-    if (bst_find(bst, 28) != 1) {
-        return 0;
-    }
-    if (bst_find(bst, 18) != 1) {
-        return 0;
-    }
-    if (bst_find(bst, 27) != 1) {
-        return 0;
-    }
-    if (bst_find(bst, 45) != 0) {
-        return 0;
-    }
-    bst_free(bst);
-    return 1;
 }
 
 
@@ -133,9 +80,6 @@ int (*unitTests[])(int)={
     unitTest1,
     unitTest2,
     unitTest3,
-    unitTest4,
-    unitTest5,
-    unitTest6,
     NULL
 };
 
