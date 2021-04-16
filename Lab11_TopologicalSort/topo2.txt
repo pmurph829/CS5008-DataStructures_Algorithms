@@ -1,2 +1,10 @@
 eat sleep
 eat exercise
+sleep exercise
+brush_teeth eat
+brush_teeth sleep
+shower dry_hair
+cook eat
+clean cook
+clean sleep
+exercise shower

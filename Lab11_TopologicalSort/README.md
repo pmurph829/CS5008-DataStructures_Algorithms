@@ -150,8 +150,8 @@ Okay, now that you understand the data structure, you will implement two functio
 
 Your answers here:
 
-1. *edit your response*
-2. *edit your response*
+1. The space complexity of an adjacency matrix is O(n^2) because a value needs to be stored for each pair of nodes. 
+2. No, because the rows and columns both represent the same set of vertices.
 
 
 ## Compiling and running the program.
@@ -203,9 +203,9 @@ eat exercise
 
 Your answer:
 
-1. *edit your response*
-2. *edit your response*
-3. *edit your response*
+1. You cannot run topological sort on a graph that is undirected because it needs to know the direction of the relationship between nodes to determine the order.
+2. You cannot run topological sort on a directed graph that has a cycle, because it would create a loop (like rock paper scissors).
+3. If you never reached a child node in a depth first search, you would have a cycle. The algorithm would always try to go to the next node, but would start visiting nodes it had already visited.
 
 
 # Deliverable
