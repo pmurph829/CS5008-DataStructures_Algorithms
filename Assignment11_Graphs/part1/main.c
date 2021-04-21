@@ -19,6 +19,9 @@ int main(int argc, const char * argv[]) {
     graph_add_node(graph, 1);
     graph_add_node(graph, 1);
     graph_add_node(graph, 2);
+
+    graph_node_t* node2 = find_node(graph, 2);
+    printf("Found node %d\n", node2->data);
     printf("total nodes: 2==%d\n", graph_num_nodes(graph));
     return 0;
 }

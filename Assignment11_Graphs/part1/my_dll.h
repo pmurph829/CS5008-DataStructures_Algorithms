@@ -261,7 +261,7 @@ void* dll_get(dll_t* l, int pos){
     if (l == NULL) {
         return NULL;
     }
-    if (pos < 0 || pos >= l->count - 1){
+    if (pos < 0 || pos >= l->count){
         return NULL;
     }
     

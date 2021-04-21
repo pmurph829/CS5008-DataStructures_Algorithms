@@ -64,7 +64,10 @@ graph_node_t* find_node( graph_t * g, int value){
     for (i = 0; i < g->nodes->count; i++) {
         graph_node_t* gNode = dll_get(g->nodes, i);
         if (gNode != NULL) {
-            return gNode;
+            printf("%d\n", gNode->data);
+            if (gNode->data == value) {
+                return gNode;
+            }
         }
     }
     return NULL;
@@ -152,9 +155,28 @@ int graph_remove_node(graph_t* g, int value){
 int graph_add_edge(graph_t * g, int source, int destination){
     // The function adds an edge from source to destination but not the other way.
     // Make sure you are not adding the same edge multiple times.
-    // Make sure you modify the in and out neighbors appropriatelly. destination will be an out neighbor of source.
+    // Make sure you modify the in and out neighbors appropriatelly. 
+    // destination will be an out neighbor of source.
     // Source will be an in neighbor of destination.
-    return -1;
+    if (g == NULL) {
+        return -1;
+    }    
+    if (contains_edge(g, source, destination) == 1) {
+        return 0;
+    }
+    graph_node_t* src = find_node(g, source);
+    graph_node_t* dest = find_node(g, destination);
+
+    if (src == NULL || dest == NULL) {
+        return 0;
+    }
+
+    // Add dest to src outNeighbors
+    int result1 = dll_push_back(src->outNeighbors, dest);
+    // Add src to dest inNeighbors
+    int result2 = dll_push_back(dest->inNeighbors, src);
+
+    return (result1 == 1) && (result2 == 1);
 }
 
 // Returns 1 on success
