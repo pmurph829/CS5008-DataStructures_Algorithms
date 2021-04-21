@@ -142,19 +142,19 @@ int dll_push_back(dll_t* l, void* item){
 }
 
 // Returns the first item in the DLL and also removes it from the list.
-// Returns 0 on failure, i.e. there is noting to pop from the list.
-// Returns a -1 if the DLL is NULL.
+// Returns NULL on failure, i.e. there is noting to pop from the list.
+// Returns NULL if the DLL is NULL.
 // Assume no negative numbers in the list or the number zero.
 void* dll_pop_front(dll_t* t){
     if (t == NULL) {
-        return -1;
+        return NULL;
     }
     if (t->count == 0) {
-        return 0;
+        return NULL;
     }
     
     // retrieve the first item in the list
-    int frontItem = t->head->data;
+    void* frontItem = t->head->data;
 
     // create a pointer to the current head node so we can free it later
     node_t* oldHead = t->head;
@@ -175,19 +175,19 @@ void* dll_pop_front(dll_t* t){
 }
 
 // Returns the last item in the DLL, and also removes it from the list.
-// Returns 0 on failure, i.e. there is noting to pop from the list.
-// Returns a -1 if the DLL is NULL.
+// Returns NULL on failure, i.e. there is noting to pop from the list.
+// Returns NULL if the DLL is NULL.
 // Assume no negative numbers in the list or the number zero.
 void* dll_pop_back(dll_t* t){
     if (t == NULL){
-        return -1;
+        return NULL;
     }
     if (t->count == 0){
-        return 0;
+        return NULL;
     }
     
     // Retrieve the last item in the list
-    int backItem = t->tail->data;
+    void* backItem = t->tail->data;
     
     // Create a pointer to the current tail node so we can free it later.
     node_t* oldTail = t->tail;
@@ -251,21 +251,18 @@ int dll_insert(dll_t* l, int pos, void* item){
 
 // Returns the item at position pos starting at 0 ( 0 being the first item )
 //  (does not remove the item)
-// Retruns 0 on failure:
+// Retruns NULL on failure:
 //  * we tried to get at a negative location.
 //  * we tried to get past the size of the list
-// Returns -1 if the list is NULL
+// Returns NULL if the list is NULL
 // Assume no negative numbers in the list or the number zero.
 void* dll_get(dll_t* l, int pos){
 //TODO make sure to handle case where l = NULL
     if (l == NULL) {
-        return -1;
+        return NULL;
     }
     if (pos < 0 || pos >= l->count){
-        return 0;
-    }
-	if (l == NULL){	
-		return -1;
+        return NULL;
     }
     
     node_t* iter = l->head;
@@ -285,10 +282,10 @@ void* dll_get(dll_t* l, int pos){
 void* dll_remove(dll_t* l, int pos){
 //TODO handle case with multiple nodes added to back
     if (l == NULL){
-        return -1;
+        return NULL;
     }
     if (pos < 0 || pos >= l-> count){
-        return 0;
+        return NULL;
     }
     
     // Check if pos is at front or back of list
@@ -306,7 +303,7 @@ void* dll_remove(dll_t* l, int pos){
         iter = iter->next;
     }
 
-    int data = iter->data;
+    void* data = iter->data;
 
     // Connect the surrounding nodes
     iter->previous->next = iter->next;
