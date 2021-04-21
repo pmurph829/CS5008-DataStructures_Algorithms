@@ -36,6 +36,9 @@ typedef struct graph_node{
 graph_t* create_graph(){
     // Modify the body of this function as needed.
     graph_t* myGraph= malloc(sizeof(graph_t));
+    if (myGraph == NULL) {
+        return NULL;
+    }
     myGraph->nodes = create_dll();
     myGraph->numEdges = 0;
     myGraph->numNodes = 0;
@@ -45,7 +48,17 @@ graph_t* create_graph(){
 // Returns the node pointer if the node exists.
 // Returns NULL if the node doesn't exist or the graph is NULL
 graph_node_t* find_node( graph_t * g, int value){
+    if (g == NULL) {
        return NULL;
+    }
+    int i;
+    for (i = 0; i < g->nodes->count; i++) {
+        graph_node_t* gNode = dll_get(g->nodes, i);
+        if (gNode != NULL) {
+            return gNode;
+        }
+    }
+    return NULL;
 }
 
 // Creates a graph node
@@ -68,7 +81,7 @@ graph_node_t * create_graph_node(int value){
 int graph_add_node(graph_t* g, int value){
     if ( g == NULL ) return -1;
     
-    if (find_node(g, value) != NULL) return -1;
+    if (find_node(g, value) != NULL) return 0;
     
     graph_node_t * newNode = create_graph_node(value);
     if ( newNode == NULL ) return -1;
@@ -144,7 +157,10 @@ int getNumOutNeighbors( graph_t * g, int value){
 // Returns the number of nodes in the graph
 // Returns -1 if the graph is NULL.
 int graph_num_nodes(graph_t* g){
-    return 0;
+    if (g == NULL) {
+        return -1;
+    }
+    return g->nodes->count;
 }
 
 // Returns the number of edges in the graph,
