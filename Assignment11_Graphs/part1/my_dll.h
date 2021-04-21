@@ -40,10 +40,27 @@ typedef struct DLL{
 dll_t* create_dll(){
     // Modify the body of this function as needed.
     dll_t* myDLL= malloc(sizeof(dll_t));
+    if (myDLL == NULL) {
+        return NULL;
+    }
     myDLL->count =0;
     myDLL->head = NULL;
     myDLL->tail = NULL;
     return myDLL;
+}
+
+// Create a new node
+// Returns a pointer to a new node
+// Assigns the previous and next fields of the new node
+node_t* create_node(void* data, node_t* previous, node_t* next) {
+    node_t* newNode = malloc(sizeof(node_t));
+    if (newNode == NULL) {
+        return NULL;
+    }
+    newNode->data = data;
+    newNode->next = next;
+    newNode->previous = previous;
+    return newNode;
 }
 
 // DLL Empty
@@ -52,7 +69,13 @@ dll_t* create_dll(){
 // Returns 0 if false (the DLL has at least one element enqueued)
 // Returns -1 if the dll is NULL.
 int dll_empty(dll_t* l){
-    return -1;
+    if (l == NULL) {
+        return -1;
+    }
+    if (l->count == 0) {
+        return 1;
+    }
+    return 0;
 }
 
 // push a new item to the front of the DLL ( before the first node in the list).
@@ -61,7 +84,29 @@ int dll_empty(dll_t* l){
 // Returns -1 if DLL is NULL.
 // (i.e. the memory allocation for a new node failed).
 int dll_push_front(dll_t* l, void* item){
-    return -1;
+    if (l == NULL) {
+        return -1;
+    }
+    // create a new node
+    node_t* newNode = create_node(item, NULL, l->head);
+
+    // make sure memory allocation worked
+    if (newNode == NULL) {
+        return 0;
+    }
+
+    // if this is the first node being added to the list, set tail to this node
+    // otherwise, set old head's previous to this node
+    if (l->count == 0) {
+        l->tail = newNode;
+    } else {
+        l->head->previous = newNode;
+    }
+    
+    // update current head of list and increase count
+    l->head = newNode;
+    l->count++;
+    return 1;
 }
 
 // push a new item to the end of the DLL (after the last node in the list).
@@ -70,7 +115,30 @@ int dll_push_front(dll_t* l, void* item){
 // Returns -1 if DLL is NULL.
 // (i.e. the memory allocation for a new node failed).
 int dll_push_back(dll_t* l, void* item){
+    if (l == NULL) {
         return -1;
+    }
+
+    // create a new node
+    node_t* newNode = create_node(item, l->tail, NULL);
+
+    // check that memory allocation worked
+    if (newNode == NULL) {
+        return 0;
+    }
+
+    // if this is the first item being added to the list, set head to this node
+    // otherwise, set the old tail's previous field to this node
+    if (l->count == 0) {
+        l->head = newNode;
+    } else {
+        l->tail->next = newNode;
+    }
+
+    // update the current tail and increase count
+    l->tail = newNode;
+    l->count++;
+    return 1;
 }
 
 // Returns the first item in the DLL and also removes it from the list.
@@ -78,8 +146,21 @@ int dll_push_back(dll_t* l, void* item){
 // Returns a -1 if the DLL is NULL.
 // Assume no negative numbers in the list or the number zero.
 void* dll_pop_front(dll_t* t){
+    if (t == NULL) {
+        return -1;
+    }
+    if (t->count == 0) {
+        return 0;
+    }
+    
+    // retrieve the first item in the list
+    int frontItem = t->head->data;
 
-        return -1; // Note: This line is a 'filler' so the code compiles.
+    // create a pointer to the current head node so we can free it later
+    node_t* oldHead = t->head;
+
+    // update the head node
+    if (t->count == 1) 
 }
 
 // Returns the last item in the DLL, and also removes it from the list.
@@ -112,6 +193,7 @@ int dll_insert(dll_t* l, int pos, void* item){
 // Returns -1 if the list is NULL
 // Assume no negative numbers in the list or the number zero.
 void* dll_get(dll_t* l, int pos){
+//TODO make sure to handle case where l = NULL
         return NULL; // Note: This line is a 'filler' so the code compiles.
 }
 
@@ -122,7 +204,7 @@ void* dll_get(dll_t* l, int pos){
 // Returns NULL if the list is NULL
 // Assume no negative numbers in the list or the number zero.
 void* dll_remove(dll_t* l, int pos){
-        
+//TODO handle case with multiple nodes added to back
         return NULL; // Note: This line is a 'filler' so the code compiles.
 }
 
