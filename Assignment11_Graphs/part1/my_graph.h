@@ -28,6 +28,15 @@ typedef struct graph_node{
     dll_t* outNeighbors;
 }graph_node_t;
 
+void free_node(graph_node_t* node) {
+    if (node == NULL) {
+        return;
+    }
+    free_dll(node->inNeighbors);
+    free_dll(node->outNeighbors);
+    free(node);
+}
+
 // Creates a graph
 // Returns a pointer to a newly created graph.
 // The graph should be initialized with data on the heap.
@@ -99,7 +108,42 @@ int graph_add_node(graph_t* g, int value){
 int graph_remove_node(graph_t* g, int value){
     // The function removes the node from the graph along with any edges associated with it.
     // That is, this node would have to be removed from all the in and out neighbor's lists that countain it.
-    return -1;
+    if (g == NULL) {
+        return -1;
+    }
+    graph_node_t* gNode = find_node(g, value);
+    if (gNode == NULL) {
+        return 0;
+    }
+    
+    int i;
+    int j;
+    graph_node_t* in;
+    graph_node_t* out;
+    // remove this node from the out list of each in neighbor
+    for (i=0; i < gNode->inNeighbors->count; i++) {
+       in = dll_get(gNode->inNeighbors, i);
+       for (j=0; j < in->outNeighbors->count; j++) {
+            graph_node_t* current = dll_get(in->outNeighbors, j);
+            if (current->data == value){
+                dll_remove(in->outNeighbors, j);
+            }
+        }
+    }
+
+    // remove this node from the in list of each out neighbor
+    for (i=0; i< gNode->outNeighbors->count; i++) {
+        out = dll_get(gNode->outNeighbors, i);
+        for (j=0; j < out->inNeighbors->count; j++) {
+            graph_node_t* current = dll_get(out->inNeighbors, j);
+            if (current->data == value) {
+                dll_remove(out->inNeighbors, j);
+            }
+        }
+    }
+    // free this node
+    free_node(gNode);
+    return 1;
 }
 
 // Returns 1 on success
