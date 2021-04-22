@@ -9,7 +9,7 @@ Discuss and answer the following questions (Make sure to elaborate and justify y
 
 ## Answers
 
-1. *edit your answer here*
+1. 
 2. *edit your answer here*
 3. *edit your answer here*
 4. *edit your answer here*
