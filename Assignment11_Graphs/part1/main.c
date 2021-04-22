@@ -19,9 +19,27 @@ int main(int argc, const char * argv[]) {
     graph_add_node(graph, 1);
     graph_add_node(graph, 1);
     graph_add_node(graph, 2);
+    graph_add_node(graph, 3);
+    graph_add_node(graph, 0);
+    graph_add_node(graph, 4);
 
-    graph_node_t* node2 = find_node(graph, 2);
-    printf("Found node %d\n", node2->data);
-    printf("total nodes: 2==%d\n", graph_num_nodes(graph));
+    graph_add_edge(graph, 0, 1);
+    graph_add_edge(graph, 1, 2);
+    graph_add_edge(graph, 2, 3);
+    graph_add_edge(graph, 3, 3);
+    graph_add_edge(graph, 0, 2);
+    graph_add_edge(graph, 2, 0);
+
+    graph_add_edge(graph, 3, 1);
+    graph_remove_edge(graph, 3, 1);
+
+    graph_node_t* fNode = find_node(graph, 4);
+    printf("Found node %d\n", fNode->data);
+    graph_remove_node(graph, 4);
+    if (find_node(graph, 4) == NULL) {
+        printf("Successfully removed node 4\n");
+    }
+    printf("total nodes: %d\n", graph_num_nodes(graph));
+    printf("total edges: %d\n", graph_num_edges(graph));
     return 0;
 }
