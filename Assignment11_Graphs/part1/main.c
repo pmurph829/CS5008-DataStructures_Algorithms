@@ -32,6 +32,15 @@ int main(int argc, const char * argv[]) {
 
     graph_add_edge(graph, 3, 1);
     graph_remove_edge(graph, 3, 1);
+    
+    int i;
+    int j;
+    for (i=0; i < 4; i++) {
+        for (j=0; j < 4; j++) {
+            printf("(%d -> %d) = %d | ", i, j, contains_edge(graph, i, j));
+        }
+        printf("\n");
+    }
 
     graph_node_t* fNode = find_node(graph, 4);
     printf("Found node %d\n", fNode->data);
@@ -41,5 +50,7 @@ int main(int argc, const char * argv[]) {
     }
     printf("total nodes: %d\n", graph_num_nodes(graph));
     printf("total edges: %d\n", graph_num_edges(graph));
+
+    free_graph(graph);
     return 0;
 }
