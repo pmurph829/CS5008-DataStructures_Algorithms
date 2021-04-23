@@ -351,6 +351,34 @@ void free_graph(graph_t* g){
     free(g);
 }
 
+// returns 1 if we can reach the destination from source
+// returns 0 if it is not reachable
+// returns -1 if the graph is NULL (using BFS)
+int is_reachable(graph_t * g, int source, int dest){
+
+}
+
+// returns 1 if there is a cycle in the graph
+// returns 0 if no cycles exist in the graph
+// returns -1 if the graph is NULL 
+// You may use either BFS or DFS to complete this task.
+int has_cycle(graph_t * g){
+    
+}
+
+// prints any path from source to destination if there 
+// exists a path from the source to the destination.
+// Note: Consider using one of the other functions to help you
+//       determine if a path exists first
+// (Choose either BFS or DFS, typically DFS is much simpler)
+//
+// Returns 1 if there is a path from source to destination
+// Returns 0 if there is not a path from a source to destination
+// Returns -1 if the graph is NULL
+int print_path(graph_t * g, int source, int dest){
+    
+}
+
 
 
 #endif
