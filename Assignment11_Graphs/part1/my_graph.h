@@ -459,11 +459,11 @@ int print_path(graph_t * g, int source, int dest){
         int i;
         for (i = 0; i < bfs->count; i++) {
             graph_node_t* n = dll_get(bfs, i);
-                printf("%d ", n->data);
-                if (n->data == dest) {
-                    printf("\n");
-                    return 1;
-                }
+            printf("%d ", n->data);
+            if (n->data == dest) {
+                printf("\n");
+                return 1;
+            }
         }
     }
     return 0;
