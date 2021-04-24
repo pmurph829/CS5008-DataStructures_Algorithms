@@ -363,6 +363,7 @@ void reset_visited(graph_t* g) {
     }
 }
 
+// traverse a graph (bfs) starting at a root and return a list of nodes in order.
 dll_t* bfs_from_root(graph_t* g, int r) {
     if (g == NULL) {
         return NULL;
