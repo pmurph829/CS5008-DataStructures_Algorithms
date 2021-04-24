@@ -15,6 +15,7 @@
 #include "my_dll.h"
 #include <stdlib.h>
 #include <assert.h>
+#include <stdbool.h>
 // Create a graph data structure
 typedef struct graph{
     int numNodes;
@@ -24,6 +25,7 @@ typedef struct graph{
 
 typedef struct graph_node{
     int data;
+    bool visited;
     dll_t* inNeighbors;
     dll_t* outNeighbors;
 }graph_node_t;
@@ -81,6 +83,7 @@ graph_node_t * create_graph_node(int value){
     if ( graph_node == NULL ) return NULL;
     
     graph_node->data = value;
+    graph_node->visited = false;
     graph_node->inNeighbors = create_dll();
     graph_node->outNeighbors = create_dll();
     
@@ -351,10 +354,28 @@ void free_graph(graph_t* g){
     free(g);
 }
 
+// Resets all nodes visited status to false.
+void reset_visited(graph_t* g) {
+    int i;
+    for (i = 0; i < g->nodes->count; i++) {
+        graph_node_t* gNode = dll_get(g->nodes, i);
+        gNode->visited = false;
+    }
+}
+
 // returns 1 if we can reach the destination from source
 // returns 0 if it is not reachable
 // returns -1 if the graph is NULL (using BFS)
 int is_reachable(graph_t * g, int source, int dest){
+    if (g == NULL) {
+        return -1;
+    }
+    if (source == dest) {
+        return 1;
+    }
+    
+    graph_node_t* root = find_node(g, source);
+    
 
 }
 
