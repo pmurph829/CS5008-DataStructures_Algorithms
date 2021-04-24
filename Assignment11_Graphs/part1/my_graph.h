@@ -363,6 +363,31 @@ void reset_visited(graph_t* g) {
     }
 }
 
+dll_t* bfs_from_root(graph_t* g, int r) {
+    if (g == NULL) {
+        return NULL;
+    }
+    reset_visited(g);
+    dll_t* bfs_result = create_dll();
+    dll_t* queue = create_dll();
+    graph_node_t* root = find_node(g, r);
+    root->visited = true;
+    dll_push_back(queue, root);
+    int i;
+    while (!dll_empty(queue)) {
+        graph_node_t* current = dll_pop_front(queue);
+        dll_push_back(bfs_result, current);
+        for (i = 0; i < current->outNeighbors->count; i++) {
+            graph_node_t* n = dll_get(current->outNeighbors, i);
+            if (n->visited == false) {
+                dll_push_back(queue, n);
+                n->visited = true;
+            }
+        }
+    }
+    return bfs_result;
+}
+
 // returns 1 if we can reach the destination from source
 // returns 0 if it is not reachable
 // returns -1 if the graph is NULL (using BFS)
@@ -373,10 +398,15 @@ int is_reachable(graph_t * g, int source, int dest){
     if (source == dest) {
         return 1;
     }
-    
-    graph_node_t* root = find_node(g, source);
-    
-
+    dll_t* bfs = bfs_from_root(g, source);
+    int i;
+    for (i = 0; i < bfs->count; i++) {
+        graph_node_t* n = dll_get(bfs, i);
+            if (n->data == dest) {
+                return 1;
+            }
+    }
+    return 0;
 }
 
 // returns 1 if there is a cycle in the graph
@@ -384,7 +414,28 @@ int is_reachable(graph_t * g, int source, int dest){
 // returns -1 if the graph is NULL 
 // You may use either BFS or DFS to complete this task.
 int has_cycle(graph_t * g){
-    
+    if (g == NULL) {
+        return -1;
+    }
+    int i;
+    for (i = 0; i < g->nodes->count; i++) {
+        reset_visited(g);
+        dll_t* queue = create_dll();
+        graph_node_t* root = find_node(g, i);
+        root->visited = true;
+        dll_push_back(queue, root);
+        int i;
+        while (!dll_empty(queue)) {
+            graph_node_t* current = dll_pop_front(queue);
+            for (i = 0; i < current->outNeighbors->count; i++) {
+                graph_node_t* n = dll_get(current->outNeighbors, i);
+                if (n->visited == true) {
+                    return 1;
+                }
+            }
+        }
+    }
+    return 0;
 }
 
 // prints any path from source to destination if there 
@@ -397,7 +448,25 @@ int has_cycle(graph_t * g){
 // Returns 0 if there is not a path from a source to destination
 // Returns -1 if the graph is NULL
 int print_path(graph_t * g, int source, int dest){
-    
+    if (g == NULL) {
+        return -1;
+    }
+    if (source == dest) {
+        return 1;
+    }
+    if (is_reachable(g, source, dest) == 1) {
+        dll_t* bfs = bfs_from_root(g, source);
+        int i;
+        for (i = 0; i < bfs->count; i++) {
+            graph_node_t* n = dll_get(bfs, i);
+                printf("%d ", n->data);
+                if (n->data == dest) {
+                    printf("\n");
+                    return 1;
+                }
+        }
+    }
+    return 0;
 }
 
 

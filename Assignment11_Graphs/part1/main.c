@@ -41,7 +41,7 @@ int main(int argc, const char * argv[]) {
         }
         printf("\n");
     }
-
+    
     graph_node_t* fNode = find_node(graph, 4);
     printf("Found node %d\n", fNode->data);
     graph_remove_node(graph, 4);
@@ -50,6 +50,18 @@ int main(int argc, const char * argv[]) {
     }
     printf("total nodes: %d\n", graph_num_nodes(graph));
     printf("total edges: %d\n", graph_num_edges(graph));
+
+    int src = 0;
+    int dest = 3;
+    print_path(graph, src, dest);
+    printf("%d reachable from %d: %d\n", dest, src, is_reachable(graph, src, dest));
+    printf("Cycles: %d\n", has_cycle(graph));
+
+    graph_remove_edge(graph, 0, 2);
+    graph_remove_edge(graph, 3, 3);
+
+    printf("Cycles: %d\n", has_cycle(graph));
+
 
     free_graph(graph);
     return 0;
