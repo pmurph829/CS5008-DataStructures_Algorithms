@@ -61,7 +61,7 @@ int main(int argc, const char * argv[]) {
     graph_remove_edge(graph, 3, 3);
 
     printf("Cycles: %d\n", has_cycle(graph));
-
+    print_path(graph, 0, 3);
 
     free_graph(graph);
     return 0;

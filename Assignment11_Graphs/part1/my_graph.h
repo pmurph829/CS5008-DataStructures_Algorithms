@@ -386,6 +386,7 @@ dll_t* bfs_from_root(graph_t* g, int r) {
             }
         }
     }
+    free_dll(queue);
     return bfs_result;
 }
 
@@ -404,9 +405,11 @@ int is_reachable(graph_t * g, int source, int dest){
     for (i = 0; i < bfs->count; i++) {
         graph_node_t* n = dll_get(bfs, i);
             if (n->data == dest) {
+                free_dll(bfs);
                 return 1;
             }
     }
+    free_dll(bfs);
     return 0;
 }
 
@@ -431,10 +434,12 @@ int has_cycle(graph_t * g){
             for (i = 0; i < current->outNeighbors->count; i++) {
                 graph_node_t* n = dll_get(current->outNeighbors, i);
                 if (n->visited == true) {
+                    free_dll(queue);
                     return 1;
                 }
             }
         }
+        free_dll(queue);
     }
     return 0;
 }
@@ -463,9 +468,11 @@ int print_path(graph_t * g, int source, int dest){
             printf("%d ", n->data);
             if (n->data == dest) {
                 printf("\n");
+                free_dll(bfs);
                 return 1;
             }
         }
+        free_dll(bfs);
     }
     return 0;
 }
